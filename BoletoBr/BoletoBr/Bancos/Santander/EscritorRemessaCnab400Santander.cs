@@ -181,7 +181,7 @@ namespace BoletoBr.Bancos.Santander
                 else
                     detalhe = detalhe.PreencherValorNaLinha(143, 147, string.Empty.PadLeft(5, '0'));
 
-                detalhe = detalhe.PreencherValorNaLinha(148, 149, infoDetalhe.Especie.Sigla.Equals("DM") ? "01" : infoDetalhe.Especie.Codigo.ToString(CultureInfo.InvariantCulture));
+                detalhe = detalhe.PreencherValorNaLinha(148, 149, infoDetalhe.Especie.Sigla.Equals("DM") ? "01" : infoDetalhe.Especie.Codigo.ToString().PadLeft(2,'0'));
                 detalhe = detalhe.PreencherValorNaLinha(150, 150, "N");
                 detalhe = detalhe.PreencherValorNaLinha(151, 156, infoDetalhe.DataEmissao.ToString("ddMMyy"));
 
