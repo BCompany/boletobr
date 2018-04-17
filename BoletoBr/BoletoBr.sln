@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3DBC0B
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoletoBrPrint", "BoletoBrPrint\BoletoBrPrint.csproj", "{4E4D97D3-345B-4EA1-96C9-2FE303F22EF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{D99DF35D-54A4-46F7-9B41-61F3029B104A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D99DF35D-54A4-46F7-9B41-61F3029B104A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D99DF35D-54A4-46F7-9B41-61F3029B104A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E4D97D3-345B-4EA1-96C9-2FE303F22EF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E4D97D3-345B-4EA1-96C9-2FE303F22EF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E4D97D3-345B-4EA1-96C9-2FE303F22EF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E4D97D3-345B-4EA1-96C9-2FE303F22EF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
