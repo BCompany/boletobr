@@ -47,10 +47,10 @@
   <ItemGroup>
     <Compile Include="Bancos\Santander\GeradorBoletoSantanderPDF.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Resource1.Designer.cs">
+    <Compile Include="Resources\BoletoBrPrint.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resource1.resx</DependentUpon>
+      <DependentUpon>BoletoBrPrint.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -60,13 +60,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Imagens\LogotipoSantander.jpg" />
+    <EmbeddedResource Include="Resources\BoletoBrPrint.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoletoBrPrint.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Resource1.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <None Include="Resources\Imagens\LogotipoSantanderPNG.bin" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
