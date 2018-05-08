@@ -272,8 +272,8 @@ namespace BoletoBr.Bancos.Santander
 
         public void FormataNossoNumero(Boleto boleto)
         {
-            if (String.IsNullOrEmpty(boleto.IdentificadorInternoBoleto) ||
-                String.IsNullOrEmpty(boleto.IdentificadorInternoBoleto.TrimStart('0')))
+            if (String.IsNullOrEmpty(boleto.IdentificadorInternoBoleto)) 
+                // || String.IsNullOrEmpty(boleto.IdentificadorInternoBoleto.TrimStart('0')))
                 throw new Exception("Sequencial Nosso Número não foi informado.");
 
             boleto.SetNossoNumeroFormatado(String.Format("{0}{1}",
@@ -312,92 +312,54 @@ namespace BoletoBr.Bancos.Santander
                 {
                     return new EspecieDocumento((int) especie)
                     {
-                        Codigo = 02,
-                        Descricao = "Duplicata mercantil",
+                        Codigo = 01,
+                        Descricao = "Duplicata",
                         Sigla = "DM"
                     };
                 }
+                case EnumEspecieDocumento.NotaPromissoria:
+                    {
+                        return new EspecieDocumento((int)especie)
+                        {
+                            Codigo = 02,
+                            Descricao = "Nota promissória",
+                            Sigla = "NP"
+                        };
+                    }
+                case EnumEspecieDocumento.ApoliceSeguro:
+                    {
+                        return new EspecieDocumento((int)especie)
+                        {
+                            Codigo = 03,
+                            Descricao = "Apólice seguro",
+                            Sigla = "AP"
+                        };
+                    }
+                case EnumEspecieDocumento.Recibo:
+                    {
+                        return new EspecieDocumento((int)especie)
+                        {
+                            Codigo = 05,
+                            Descricao = "Recibo",
+                            Sigla = "RC"
+                        };
+                    }
                 case EnumEspecieDocumento.DuplicataServico:
                 {
                     return new EspecieDocumento((int) especie)
                     {
-                        Codigo = 04,
+                        Codigo = 06,
                         Descricao = "Duplicata de serviço",
                         Sigla = "DS"
                     };
                 }
-                // Somente para banco 353
-                case EnumEspecieDocumento.LetraCambio353:
+                case EnumEspecieDocumento.LetraCambio:
                 {
                     return new EspecieDocumento((int) especie)
                     {
                         Codigo = 07,
                         Descricao = "Letra de câmbio",
                         Sigla = "LC"
-                    };
-                }
-                case EnumEspecieDocumento.NotaPromissoria:
-                {
-                    return new EspecieDocumento((int) especie)
-                    {
-                        Codigo = 12,
-                        Descricao = "Nota promissória",
-                        Sigla = "NP"
-                    };
-                }
-                case EnumEspecieDocumento.NotaPromissoriaRural:
-                {
-                    return new EspecieDocumento((int) especie)
-                    {
-                        Codigo = 13,
-                        Descricao = "Nota promissória rural",
-                        Sigla = "NP"
-                    };
-                }
-                case EnumEspecieDocumento.Recibo:
-                {
-                    return new EspecieDocumento((int) especie)
-                    {
-                        Codigo = 17,
-                        Descricao = "Recibo",
-                        Sigla = "RC"
-                    };
-                }
-                case EnumEspecieDocumento.ApoliceSeguro:
-                {
-                    return new EspecieDocumento((int) especie)
-                    {
-                        Codigo = 20,
-                        Descricao = "Apólice seguro",
-                        Sigla = "AP"
-                    };
-                }
-                // Somente para banco 008
-                case EnumEspecieDocumento.LetraCambio008:
-                {
-                    return new EspecieDocumento((int) especie)
-                    {
-                        Codigo = 30,
-                        Descricao = "Letra de câmbio",
-                        Sigla = "LC"
-                    };
-                }
-                case EnumEspecieDocumento.Cheque:
-                {
-                    return new EspecieDocumento((int) especie)
-                    {
-                        Codigo = 97,
-                        Descricao = "Cheque",
-                        Sigla = "CH"
-                    };
-                }
-                case EnumEspecieDocumento.NotaPromissoariaDireta:
-                {
-                    return new EspecieDocumento((int) especie)
-                    {
-                        Codigo = 98,
-                        Descricao = "Nota promissória direta",
-                        Sigla = "ND"
                     };
                 }
             }

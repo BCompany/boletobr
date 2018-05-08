@@ -175,6 +175,7 @@ namespace BoletoBrPrint.Bancos
             var smallFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 6);
             var regularFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 7);
             var boldFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 7, iTextSharp.text.Font.BOLD);
+            var boldMediumFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10, iTextSharp.text.Font.BOLD);
             var boldBigFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 15, iTextSharp.text.Font.BOLD);
 
             var pdfDocument = new Document(PageSize.A4);
@@ -212,7 +213,7 @@ namespace BoletoBrPrint.Bancos
             receiptTable.AddCell(col2);
 
 
-            col3 = new PdfPCell(new Phrase(new String(' ', 40) + "RECIBO DO PAGADOR", boldFont));
+            col3 = new PdfPCell(new Phrase("\n\n" + new String(' ', 30) + "RECIBO DO PAGADOR", boldMediumFont));
             col3.Colspan = 2;
             col3.BorderWidthLeft = 0;
             col3.BorderWidthTop = 0;
@@ -242,7 +243,7 @@ namespace BoletoBrPrint.Bancos
             {
                 messagesText += item.TextoInstrucao + " \n";
             }
-            chunk2 = new Chunk(messagesText);
+            chunk2 = new Chunk(messagesText, regularFont);
             col1 = new PdfPCell();
             col1.MinimumHeight = 150;
             col1.AddElement(chunk1);
@@ -274,7 +275,7 @@ namespace BoletoBrPrint.Bancos
             col2.BorderWidthRight = 0;
             documentTable.AddCell(col2);
 
-            col3 = new PdfPCell(new Phrase("\n\n" + new String(' ', 83) + document.LinhaDigitavelBoleto, regularFont));
+            col3 = new PdfPCell(new Phrase("\n\n" + new String(' ', 27) + document.LinhaDigitavelBoleto, boldMediumFont));
             col3.Colspan = 4;
             col3.BorderWidthLeft = 0;
             col3.BorderWidthTop = 0;
@@ -301,7 +302,7 @@ namespace BoletoBrPrint.Bancos
             {
                 messagesTextDoc += item.TextoInstrucao + " \n";
             }
-            chunk2 = new Chunk(messagesText);
+            chunk2 = new Chunk(messagesText, regularFont);
             col1 = new PdfPCell();
             col1.MinimumHeight = 150;
             col1.AddElement(chunk1);
@@ -330,7 +331,7 @@ namespace BoletoBrPrint.Bancos
             innerCell.AddElement(chunk2);
             innerTable.AddCell(innerCell);
 
-            chunk1 = new Chunk("(+) Valor Cobrado", smallFont);
+            chunk1 = new Chunk("(=) Valor Cobrado", smallFont);
             var totalCharged = Convert.ToDecimal(document.ValorCobrado);
             var totalChargedFmt = totalCharged > 0 ? new String(' ', 43) + totalCharged.ToString("C") : "";
             chunk2 = new Chunk(totalChargedFmt, regularFont);
@@ -354,11 +355,11 @@ namespace BoletoBrPrint.Bancos
             col1.BorderWidth = 0;
             BarcodeInter25 code25 = new BarcodeInter25();
             code25.Code = document.CodigoBarraBoleto;
-            code25.BarHeight = 30;
+            code25.BarHeight = 40;
             code25.Font = null;
             PdfContentByte cb = writer.DirectContent;
             var imgBarcode = code25.CreateImageWithBarcode(cb, null, null);
-            imgBarcode.ScalePercent(100);
+            imgBarcode.ScalePercent(120);
             col1.AddElement(imgBarcode);
             documentTable.AddCell(col1);
 

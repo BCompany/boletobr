@@ -161,7 +161,8 @@ namespace BoletoBr.Bancos.Santander
                 detalhe = detalhe.PreencherValorNaLinha(85, 97, string.Empty.PadLeft(13, '0')); /*Vl do título em outra unidade (consultar banco)*/
                 detalhe = detalhe.PreencherValorNaLinha(98, 101, string.Empty.PadLeft(4, ' '));
 
-                detalhe = detalhe.PreencherValorNaLinha(102, 107, "000000");
+                detalhe = detalhe.PreencherValorNaLinha(102, 107, infoDetalhe.DataMulta.ToString("ddMMyy"));
+                
 
                 detalhe = detalhe.PreencherValorNaLinha(108, 108, codigoCarteira);
                 detalhe = detalhe.PreencherValorNaLinha(109, 110, "01"); /* Código da Ocorrência*/
@@ -256,7 +257,7 @@ namespace BoletoBr.Bancos.Santander
 
                 #endregion
 
-                detalhe = detalhe.PreencherValorNaLinha(219, 220, infoDetalhe.InscricaoPagador.Length == 11 ? "01" : "02");
+                detalhe = detalhe.PreencherValorNaLinha(219, 220, infoDetalhe.InscricaoPagador.Replace(".", "").Replace("/", "").Replace("-", "").Length == 11 ? "01" : "02");
                 detalhe = detalhe.PreencherValorNaLinha(221, 234, infoDetalhe.InscricaoPagador.Replace(".", "").Replace("/", "").Replace("-", "").PadLeft(14, '0'));
                 detalhe = detalhe.PreencherValorNaLinha(235, 274, nomeSacado);
                 detalhe = detalhe.PreencherValorNaLinha(275, 314, enderecoSacado);
