@@ -64,7 +64,7 @@ namespace BoletoBr.Arquivo.Generico.Retorno
                     //detalheGenericoAdd.ValorIof = d.SegmentoU.ValorIofRecolhido / 100;
                     //detalheGenericoAdd.ValorOutrasDespesas = d.SegmentoU.ValorOutrasDespesas / 100;
                     //detalheGenericoAdd.ValorOutrosCreditos = d.SegmentoU.ValorOutrosCreditos / 100;
-                    var banco = BancoFactory.ObterBanco(d.SegmentoU?.CodigoBanco.ToString());
+                    var banco = BancoFactory.ObterBanco(d.SegmentoU?.CodigoBanco.ToString().PadLeft(3, '0'));
                     var ocorrencia = banco.ObtemCodigoOcorrenciaByInt(d.SegmentoU.BoletoBrToBind().CodigoMovimento);
                     detalheGenericoAdd.CodigoOcorrencia = ocorrencia?.Codigo.ToString();
                     detalheGenericoAdd.MensagemOcorrenciaRetornoBancario = ocorrencia?.Descricao;
@@ -147,9 +147,9 @@ namespace BoletoBr.Arquivo.Generico.Retorno
                 RegistrosDetalhe.Add(detalheGenericoAdd);
             }
         }
-        
+
         public RetornoHeaderGenerico Header { get; set; }
-        public List<RetornoDetalheGenerico> RegistrosDetalhe { get; set; } 
+        public List<RetornoDetalheGenerico> RegistrosDetalhe { get; set; }
         public RetornoTrailerGenerico Trailer { get; set; }
         public RetornoCnab240 RetornoCnab240Especifico { get; set; }
         public RetornoCnab400 RetornoCnab400Especifico { get; set; }

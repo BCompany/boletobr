@@ -75,6 +75,7 @@
     <Compile Include="Bancos\Safra\BancoSafra.cs" />
     <Compile Include="Bancos\Safra\EscritorRemessaCnab400Safra.cs" />
     <Compile Include="Bancos\Safra\LeitorRetornoCnab400Safra.cs" />
+    <Compile Include="Bancos\Santander\LeitorRetornoCnab240Santander.cs" />
     <Compile Include="Bancos\Sicoob\BancoSicoob.cs" />
     <Compile Include="Bancos\Sicoob\EscritorRemessaCnab240Sicoob.cs" />
     <Compile Include="Bancos\Sicoob\EscritorRemessaCnab400Sicoob.cs" />

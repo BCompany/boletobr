@@ -182,6 +182,7 @@ namespace BoletoBr.Bancos.Bradesco
                 NumeroRemessaRetorno = linha.ExtrairValorDaLinha(184, 191),
                 DataGeracaoGravacao = Convert.ToDateTime(linha.ExtrairValorDaLinha(192, 199).ToDateTimeFromDdMmAa()),
                 DataDeCredito = Convert.ToDateTime(linha.ExtrairValorDaLinha(200, 207).ToDateTimeFromDdMmAa())
+
             };
 
             return objRetornar;
