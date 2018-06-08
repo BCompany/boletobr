@@ -183,6 +183,12 @@ namespace BoletoBr.Bancos.Amazonia
             throw new NotImplementedException();
         }
 
+        public RetornoGenerico LerArquivoRetornoLiquidacao(List<string> linhasArquivo)
+        {
+
+            throw new Exception("Não implementado retorno de liquidacao para o banco");
+        }
+
         public RemessaCnab240 GerarArquivoRemessaCnab240(RemessaCnab240 remessaCnab240, List<Boleto> boletos)
         {
             throw new NotImplementedException();

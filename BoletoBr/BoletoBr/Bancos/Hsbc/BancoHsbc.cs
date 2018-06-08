@@ -328,29 +328,29 @@ namespace BoletoBr.Bancos.Hsbc
             switch (ocorrenciaRetorno)
             {
                 case EnumCodigoOcorrenciaRetorno.RetLiquidado:
-                {
-                    return new CodigoOcorrencia((int) ocorrenciaRetorno)
                     {
-                        Codigo = 06,
-                        Descricao = "LIQUIDAÇÃO"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRetorno)
+                        {
+                            Codigo = 06,
+                            Descricao = "LIQUIDAÇÃO"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRetorno.RetRegistroConfirmado:
-                {
-                    return new CodigoOcorrencia((int) ocorrenciaRetorno)
                     {
-                        Codigo = 07,
-                        Descricao = "EMISSÃO CONFIRMADA"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRetorno)
+                        {
+                            Codigo = 07,
+                            Descricao = "EMISSÃO CONFIRMADA"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRetorno.RetRegistroRecusado:
-                {
-                    return new CodigoOcorrencia((int) ocorrenciaRetorno)
                     {
-                        Codigo = 08,
-                        Descricao = "PARCELA REJEITADA"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRetorno)
+                        {
+                            Codigo = 08,
+                            Descricao = "PARCELA REJEITADA"
+                        };
+                    }
 
             }
             throw new Exception(
@@ -447,146 +447,146 @@ namespace BoletoBr.Bancos.Hsbc
             switch (tipoInstrucao)
             {
                 case EnumTipoInstrucao.MultaPercentualVencimento:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 15,
-                        QtdDias = (int) valorInstrucao,
-                        TextoInstrucao = "Multa de " + valorInstrucao + " por cento após dia " + dataInstrucao
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 15,
+                            QtdDias = (int)valorInstrucao,
+                            TextoInstrucao = "Multa de " + valorInstrucao + " por cento após dia " + dataInstrucao
+                        };
+                    }
                 case EnumTipoInstrucao.MultaPorDiaVencimento:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 16,
-                        QtdDias = (int) valorInstrucao,
-                        TextoInstrucao =
-                            "Após " + dataInstrucao + " multa dia de " + valorInstrucao + "  máximo " + "???"
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 16,
+                            QtdDias = (int)valorInstrucao,
+                            TextoInstrucao =
+                                "Após " + dataInstrucao + " multa dia de " + valorInstrucao + "  máximo " + "???"
+                        };
+                    }
                 case EnumTipoInstrucao.MultaPorDiaCorrido:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 19,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao =
-                            "Multa de R$ " + valorInstrucao + " após " + diasInstrucao + " dias corridos do vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 19,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao =
+                                "Multa de R$ " + valorInstrucao + " após " + diasInstrucao + " dias corridos do vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.CobrarJurosApos7DiasVencimento:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 20,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Cobrar juros só após 07 dias do vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 20,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Cobrar juros só após 07 dias do vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.MultaPorDiaUtil:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 22,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao =
-                            "Multa de R$ " + valorInstrucao + " após " + diasInstrucao + " dias úteis do vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 22,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao =
+                                "Multa de R$ " + valorInstrucao + " após " + diasInstrucao + " dias úteis do vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.NaoReceberAposOVencimento:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 23,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Não receber após o vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 23,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Não receber após o vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.MultaVencimento:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 24,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Multa de R$ " + valorInstrucao + " após o vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 24,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Multa de R$ " + valorInstrucao + " após o vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.JurosSoAposData:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 29,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Juros só após " + dataInstrucao + ", cobrar desde o vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 29,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Juros só após " + dataInstrucao + ", cobrar desde o vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.ConcederAbatimento:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 34,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Conceder abatimento conforme proposto pelo pagador."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 34,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Conceder abatimento conforme proposto pelo pagador."
+                        };
+                    }
                 case EnumTipoInstrucao.AposVencimentoMulta10PorCento:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 36,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Após vencimento multa de 10 por cento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 36,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Após vencimento multa de 10 por cento."
+                        };
+                    }
                 case EnumTipoInstrucao.ConcederDescontoPagoAposVencimento:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 40,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Conceder desconto mesmo se pago após o vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 40,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Conceder desconto mesmo se pago após o vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.NaoReceberAntesDoVencimento:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 42,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Não receber antes do vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 42,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Não receber antes do vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.AposVencimentoMulta20PorCentoMaisMora:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 53,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Após vencimento multa de 20% mais mora de 1% a.m."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 53,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Após vencimento multa de 20% mais mora de 1% a.m."
+                        };
+                    }
                 case EnumTipoInstrucao.NaoReceberAntesdoVencimentoOu10DiasApos:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 56,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Não receber antes do vencimento ou 10 dias após."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 56,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Não receber antes do vencimento ou 10 dias após."
+                        };
+                    }
                 //case EnumTipoInstrucao.AbatimentoDesconto:
                 //{
                 //    return new InstrucaoPadronizada
@@ -598,107 +598,107 @@ namespace BoletoBr.Bancos.Hsbc
                 //    };
                 //}
                 case EnumTipoInstrucao.TituloSujeitoAProtestoAposVencimento:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 67,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Título sujeito a protesto após o vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 67,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Título sujeito a protesto após o vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.AposVencimentoMulta2PorCento:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 68,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Após o vencimento multa de 2 por cento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 68,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Após o vencimento multa de 2 por cento."
+                        };
+                    }
                 case EnumTipoInstrucao.NaoReceberAposNDiasCorridos:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 71,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Não receber após " + diasInstrucao + " dias corridos do vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 71,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Não receber após " + diasInstrucao + " dias corridos do vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.NaoReceberAposNDiasUteis:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 72,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Não receber após " + diasInstrucao + " dias úteis do vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 72,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Não receber após " + diasInstrucao + " dias úteis do vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.MultaDeVPorCentoAposNDiasCorridos:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 73,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Multa de " + valorInstrucao + " por cento após " + diasInstrucao + " dias corridos do vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 73,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Multa de " + valorInstrucao + " por cento após " + diasInstrucao + " dias corridos do vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.MultaDeVPorCentoAposNDiasUteis:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 74,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Multa de " + valorInstrucao + " por cento após " + diasInstrucao + " dias úteis do vencimento."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 74,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Multa de " + valorInstrucao + " por cento após " + diasInstrucao + " dias úteis do vencimento."
+                        };
+                    }
                 case EnumTipoInstrucao.ProtestarAposNDiasCorridos:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 75,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Protestar " + diasInstrucao + " dias corridos após o vencimento, se não pago."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 75,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Protestar " + diasInstrucao + " dias corridos após o vencimento, se não pago."
+                        };
+                    }
                 case EnumTipoInstrucao.ProtestarAposNDiasUteis:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 77,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Protestar " + diasInstrucao + " dias úteis após o vencimento, se não pago."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 77,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Protestar " + diasInstrucao + " dias úteis após o vencimento, se não pago."
+                        };
+                    }
                 /* Instruções que não geram mensagens nos boletos */
                 case EnumTipoInstrucao.ProtestarAposNDiasUteisNGM:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 76,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Protestar " + diasInstrucao + " dias úteis após o vencimento, se não pago."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 76,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Protestar " + diasInstrucao + " dias úteis após o vencimento, se não pago."
+                        };
+                    }
                 /* Instruções que não geram mensagens nos boletos */
                 case EnumTipoInstrucao.ProtestarAposNDiasCorridosNGM:
-                {
-                    return new InstrucaoPadronizada
                     {
-                        Codigo = 84,
-                        QtdDias = diasInstrucao,
-                        Valor = valorInstrucao,
-                        TextoInstrucao = "Protestar " + diasInstrucao + " dias corridos após o vencimento, se não pago."
-                    };
-                }
+                        return new InstrucaoPadronizada
+                        {
+                            Codigo = 84,
+                            QtdDias = diasInstrucao,
+                            Valor = valorInstrucao,
+                            TextoInstrucao = "Protestar " + diasInstrucao + " dias corridos após o vencimento, se não pago."
+                        };
+                    }
             }
             throw new Exception(
                 String.Format(
@@ -711,189 +711,189 @@ namespace BoletoBr.Bancos.Hsbc
             switch (ocorrenciaRemessa)
             {
                 case EnumCodigoOcorrenciaRemessa.Registro:
-                {
-                    return new CodigoOcorrencia((int) ocorrenciaRemessa)
                     {
-                        Codigo = 01,
-                        Descricao = "Entrada de títulos"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 01,
+                            Descricao = "Entrada de títulos"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.Baixa:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 02,
-                        Descricao = "Pedido de baixa"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 02,
+                            Descricao = "Pedido de baixa"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.ConcessaoDeAbatimento:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 04,
-                        Descricao = "Concessão de abatimento"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 04,
+                            Descricao = "Concessão de abatimento"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.CancelamentoDeAbatimento:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 05,
-                        Descricao = "Cancelamento de abatimento concedido"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 05,
+                            Descricao = "Cancelamento de abatimento concedido"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.AlteracaoDeVencimento:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 06,
-                        Descricao = "Alteração de vencimento"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 06,
+                            Descricao = "Alteração de vencimento"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.ConcessaoDeDesconto:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 07,
-                        Descricao = "Conceder desconto"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 07,
+                            Descricao = "Conceder desconto"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.AlteracaoDoControleDoParticipante:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 07,
-                        Descricao = "Alteração do controle do participante"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 07,
+                            Descricao = "Alteração do controle do participante"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.CancelamentoDeDesconto:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 08,
-                        Descricao = "Cancelamento de desconto"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 08,
+                            Descricao = "Cancelamento de desconto"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.AlteracaoSeuNumero:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 08,
-                        Descricao = "Alteração do seu número"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 08,
+                            Descricao = "Alteração do seu número"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.Protesto:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 09,
-                        Descricao = "Protestar"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 09,
+                            Descricao = "Protestar"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.SustarProtesto:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 10,
-                        Descricao = "Sustar protesto"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 10,
+                            Descricao = "Sustar protesto"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.NaoCobrarJurosDeMora:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 11,
-                        Descricao = "Não cobrar juros de mora"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 11,
+                            Descricao = "Não cobrar juros de mora"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.ConcessaoDeDescontoComData:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 13,
-                        Descricao = "Conceder desconto R$ " + string.Format("{0:0.##}", valorOcorrencia) + " p/ pgto até " + dataOcorrencia
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 13,
+                            Descricao = "Conceder desconto R$ " + string.Format("{0:0.##}", valorOcorrencia) + " p/ pgto até " + dataOcorrencia
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.CancelamentoDescontoFixo:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 14,
-                        Descricao = "Cancelamento condição de desconto fixo"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 14,
+                            Descricao = "Cancelamento condição de desconto fixo"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.CancelamentoDescontoDiario:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 15,
-                        Descricao = "Cancelamento de desconto diário"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 15,
+                            Descricao = "Cancelamento de desconto diário"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.AlteracaoDeVencimentoComData:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 48,
-                        Descricao = "Vencimento alterado para " + dataOcorrencia
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 48,
+                            Descricao = "Vencimento alterado para " + dataOcorrencia
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.AlteracaoDeDiasParaEnvioACartorio:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 49,
-                        Descricao = "Alteração de dias para envio a Cartório de Protesto"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 49,
+                            Descricao = "Alteração de dias para envio a Cartório de Protesto"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.InclusaoDePagadorNoBoleto:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 50,
-                        Descricao = "Inclusão de pagador no boleto eletrônico"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 50,
+                            Descricao = "Inclusão de pagador no boleto eletrônico"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.ExclusaoDePagadorNoBoleto:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 51,
-                        Descricao = "Exclusão de pagador no boleto eletrônico"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 51,
+                            Descricao = "Exclusão de pagador no boleto eletrônico"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.Reemissao:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 52,
-                        Descricao = "Reemissão"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 52,
+                            Descricao = "Reemissão"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.EntradaDeTitulosComParcelasFaltantes:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 53,
-                        Descricao = "Entrada de títulos com parcelas faltantes"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 53,
+                            Descricao = "Entrada de títulos com parcelas faltantes"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.TransferenciaParaDesconto:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 55,
-                        Descricao = "Transferência para desconto"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 55,
+                            Descricao = "Transferência para desconto"
+                        };
+                    }
                 case EnumCodigoOcorrenciaRemessa.ProtestoParaFinsFalimentares:
-                {
-                    return new CodigoOcorrencia((int)ocorrenciaRemessa)
                     {
-                        Codigo = 57,
-                        Descricao = "Protesto para fins falimentares"
-                    };
-                }
+                        return new CodigoOcorrencia((int)ocorrenciaRemessa)
+                        {
+                            Codigo = 57,
+                            Descricao = "Protesto para fins falimentares"
+                        };
+                    }
             }
             throw new Exception(
                 String.Format(
@@ -921,6 +921,12 @@ namespace BoletoBr.Bancos.Hsbc
             }
 
             throw new Exception("Arquivo de RETORNO com " + linhasArquivo.First().Length + " posições, não é suportado.");
+        }
+
+        public RetornoGenerico LerArquivoRetornoLiquidacao(List<string> linhasArquivo)
+        {
+
+            throw new Exception("Não implementado retorno de liquidacao para o banco");
         }
 
         public RemessaCnab240 GerarArquivoRemessaCnab240(List<Boleto> boletos)

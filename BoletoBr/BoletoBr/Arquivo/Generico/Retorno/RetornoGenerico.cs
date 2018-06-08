@@ -37,16 +37,12 @@ namespace BoletoBr.Arquivo.Generico.Retorno
                     var valorDoc = d.SegmentoT.ValorTitulo;
                     detalheGenericoAdd.ValorDocumento = valorDoc;
                     detalheGenericoAdd.DataVencimento = Convert.ToDateTime(d.SegmentoT.DataVencimento);
-                    //detalheGenericoAdd.ValorDocumento = Math.Round(d.SegmentoT.ValorTitulo, 2);
-                    //detalheGenericoAdd.ValorTarifaCustas = d.SegmentoT.ValorTarifas / 100;
-                    //detalheGenericoAdd.CodigoMovimento = d.SegmentoT.CodigoMovimento.ToString();
-                    //detalheGenericoAdd.CodigoOcorrencia = d.SegmentoT.MotivoOcorrencia.ToString();
-
+                    detalheGenericoAdd.NomeSacado = d.SegmentoT?.NomeSacado;
+                    
                     // Segmento U
                     detalheGenericoAdd.DataCredito = d.SegmentoU.DataCredito;
-                    //detalheGenericoAdd.DataLiquidacao = Convert.ToDateTime(d.SegmentoU.DataLiquidacao.ToString());
-                    //detalheGenericoAdd.DataCredito = Convert.ToDateTime(d.SegmentoU.DataCredito.ToString());
-
+                    detalheGenericoAdd.DataOcorrencia = Convert.ToDateTime(d.SegmentoU.DataOcorrencia);
+                    
                     #region Valores no detalhe
 
                     var valorAcres = d.SegmentoU.JurosMultaEncargos;
@@ -61,23 +57,15 @@ namespace BoletoBr.Arquivo.Generico.Retorno
 
                     #endregion
 
-                    //detalheGenericoAdd.ValorIof = d.SegmentoU.ValorIofRecolhido / 100;
-                    //detalheGenericoAdd.ValorOutrasDespesas = d.SegmentoU.ValorOutrasDespesas / 100;
-                    //detalheGenericoAdd.ValorOutrosCreditos = d.SegmentoU.ValorOutrosCreditos / 100;
                     var banco = BancoFactory.ObterBanco(d.SegmentoU?.CodigoBanco.ToString().PadLeft(3, '0'));
                     var ocorrencia = banco.ObtemCodigoOcorrenciaByInt(d.SegmentoU.BoletoBrToBind().CodigoMovimento);
                     detalheGenericoAdd.CodigoOcorrencia = ocorrencia?.Codigo.ToString();
                     detalheGenericoAdd.MensagemOcorrenciaRetornoBancario = ocorrencia?.Descricao;
                     detalheGenericoAdd.Ocorrencia = ocorrencia;
-                    //detalheGenericoAdd.CodigoOcorrencia = d.SegmentoU.CodigoOcorrenciaPagador;
-                    //detalheGenericoAdd.DataOcorrencia = d.SegmentoU.DataOcorrenciaPagador;
-                    //detalheGenericoAdd.ValorOcorrencia = d.SegmentoU.ValorOcorrenciaPagador / 100;
-                    //detalheGenericoAdd.DataDebitoTarifaCustas = Convert.ToDateTime(d.SegmentoU.DataDebitoTarifa.ToString());
 
                     //DATA LIQUIDAÇÃO E DATA OCORRENCIA
                     if (detalheGenericoAdd.Pago && detalheGenericoAdd.DataLiquidacao == DateTime.MinValue)
                         detalheGenericoAdd.DataLiquidacao = d.SegmentoU.DataOcorrencia;
-
                     RegistrosDetalhe.Add(detalheGenericoAdd);
                 }
             }

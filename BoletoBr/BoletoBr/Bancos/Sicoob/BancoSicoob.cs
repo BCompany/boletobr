@@ -690,6 +690,11 @@ namespace BoletoBr.Bancos.Sicoob
             throw new Exception("Arquivo de RETORNO com " + linhasArquivo.First().Length + " posições, não é suportado.");
         }
 
+        public RetornoGenerico LerArquivoRetornoLiquidacao(List<string> linhasArquivo)
+        {
+            throw new Exception("Não implementado retorno de liquidacao para o banco");
+        }
+
         public RemessaCnab240 GerarArquivoRemessaCnab240(List<Boleto> boletos)
         {
             throw new NotImplementedException();
