@@ -579,8 +579,8 @@ namespace BoletoBr.Bancos.Santander
                 case 03:
                     return new CodigoOcorrencia(numeroOcorrencia)
                     {
-                        Codigo = 02,
-                        Descricao = "ENTRADA TÍT. CONFIRMADA"
+                        Codigo = 03,
+                        Descricao = "ENTRADA TÍT. REJEITADA"
                     };
                 case 06:
                     return new CodigoOcorrencia(numeroOcorrencia)
