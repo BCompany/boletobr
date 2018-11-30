@@ -118,7 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  
   <data name="LogotipoSantanderPNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Imagens\LogotipoSantanderPNG.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  
+  <data name="LogotipoItauPNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Imagens\LogotipoItauPNG.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+    
+  <data name="LogotipoBancoBrasilPNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Imagens\LogotipoBancoBrasilPNG.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+    
+  <data name="LogotipoCaixaPNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Imagens\LogotipoCaixaPNG.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+
+  <data name="LogotipoBradescoPNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Imagens\LogotipoBradescoPNG.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
