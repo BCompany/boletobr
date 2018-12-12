@@ -227,9 +227,11 @@ namespace BoletoBr.Bancos.Itau
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("<BoletoBr>" +
-                                                  "{0}Mensagem: Falha ao formatar código de barras.",
-                    Environment.NewLine), ex);
+                throw new Exception(string.Format("Houve uma falha na geração deste boleto." + Environment.NewLine + "Verifique se o código da carteira de cobrança {0} é valida para o banco utilizado nesta fatura.", boleto.CarteiraCobranca.Codigo), ex);
+
+                //throw new Exception(string.Format("<BoletoBr>" +
+                //                                  "{0}Falha ao formatar código de barras.",
+                //    Environment.NewLine), ex);
             }
         }
 

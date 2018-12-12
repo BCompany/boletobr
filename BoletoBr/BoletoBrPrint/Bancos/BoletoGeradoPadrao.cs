@@ -6,23 +6,21 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace BoletoBrPrint.Generico
+namespace BoletoBrPrint.Bancos
 {
-    public class BoletoPadrao : IGeradorBoleto
+    public class BoletoGeradoPadrao : IGeradorBoleto
     {
-        private readonly BancoBoleto bancoImpressao;
+        private readonly BoletoConfigurar builder;
 
-        public BoletoPadrao(BancoBoleto bancoImpressao)
+        public BoletoGeradoPadrao(BoletoConfigurar builder)
         {
-            this.bancoImpressao = bancoImpressao;
+            this.builder = builder;
         }
         
         public virtual void EmitirBoleto(Boleto document, string path, string fileName)
         {
             var pdfDocument = new Document(PageSize.A4);
-
-            #region Estrutura dos elementos
-
+            
             PdfWriter writer = PdfWriter.GetInstance(pdfDocument, new FileStream(path + fileName, FileMode.Create));
 
             var receiptTable = new PdfPTable(6);
@@ -38,18 +36,16 @@ namespace BoletoBrPrint.Generico
             var boldMediumFont = new Font(Font.FontFamily.HELVETICA, 9, iTextSharp.text.Font.BOLD);
             var boldBigFont = new Font(Font.FontFamily.HELVETICA, 15, iTextSharp.text.Font.BOLD);
 
-            #endregion
-
-            bancoImpressao.Logotipo.ScalePercent(9, 8);
+            builder.Logotipo.ScalePercent(9, 8);
 
             cell = new PdfPCell();
-            cell.AddElement(bancoImpressao.Logotipo);
+            cell.AddElement(builder.Logotipo);
             cell.BorderWidthLeft = 0;
             cell.BorderWidthTop = 0;
             cell.BorderWidthRight = 0;
             receiptTable.AddCell(cell);
             
-            cell = new PdfPCell(new Phrase(new String(' ', 3) + bancoImpressao.NumeroBanco, boldBigFont));
+            cell = new PdfPCell(new Phrase(new String(' ', 3) + builder.NumeroBanco, boldBigFont));
             cell.Colspan = 3;
             cell.VerticalAlignment = Element.ALIGN_MIDDLE;
             cell.BorderWidthLeft = 0;
@@ -64,8 +60,8 @@ namespace BoletoBrPrint.Generico
             cell.BorderWidthRight = 0;
             receiptTable.AddCell(cell);
 
-            for (int line = 2; line <= 5; line++)
-                _GerarLinhaBoleto(document, bancoImpressao, line, receiptTable);
+            for (int line = 2; line <= 6; line++)
+                _GerarLinhaBoleto(document, builder, line, receiptTable);
 
             chunk = new Chunk("Mensagens/Instruções (Texto de Responsabilidade do Cedente) \n", smallFont);
             var messagesText = "";
@@ -75,7 +71,6 @@ namespace BoletoBrPrint.Generico
             chunk = new Chunk(messagesText, regularFont);
             cell = new PdfPCell();
             cell.MinimumHeight = 150;
-            cell.AddElement(chunk);
             cell.AddElement(chunk);
             cell.Colspan = 6;
             receiptTable.AddCell(cell);
@@ -87,13 +82,13 @@ namespace BoletoBrPrint.Generico
 
             // line 1 
             cell = new PdfPCell();
-            cell.AddElement(bancoImpressao.Logotipo);
+            cell.AddElement(builder.Logotipo);
             cell.BorderWidthLeft = 0;
             cell.BorderWidthTop = 0;
             cell.BorderWidthRight = 0;
             documentTable.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase(new String(' ', 5) + bancoImpressao.NumeroBanco, boldBigFont));
+            cell = new PdfPCell(new Phrase(new String(' ', 5) + builder.NumeroBanco, boldBigFont));
             cell.BorderWidthLeft = 0;
             cell.BorderWidthTop = 0;
             cell.VerticalAlignment = Element.ALIGN_MIDDLE;
@@ -108,7 +103,7 @@ namespace BoletoBrPrint.Generico
             documentTable.AddCell(cell);
 
             for (int line = 2; line <= 5; line++)
-                _GerarLinhaBoleto(document, bancoImpressao, line, documentTable);
+                _GerarLinhaBoleto(document, builder, line, documentTable);
 
             // Bloco Instruções, Juros, Abatimentos
             chunk = new Chunk("Instruções \n", smallFont);
@@ -119,7 +114,6 @@ namespace BoletoBrPrint.Generico
             chunk = new Chunk(messagesText, regularFont);
             cell = new PdfPCell();
             cell.MinimumHeight = 150;
-            cell.AddElement(chunk);
             cell.AddElement(chunk);
             cell.Colspan = 5;
             documentTable.AddCell(cell);
@@ -156,7 +150,7 @@ namespace BoletoBrPrint.Generico
             documentTable.AddCell(cell);
 
             // line 6
-            _GerarLinhaBoleto(document, bancoImpressao, 6, documentTable);
+            _GerarLinhaBoleto(document, builder, 6, documentTable);
 
             pdfDocument.Open();
 
@@ -181,7 +175,7 @@ namespace BoletoBrPrint.Generico
             pdfDocument.Close();
         }
 
-        private void _GerarLinhaBoleto(Boleto document, BancoBoleto banco, int lineNumber, PdfPTable table)
+        private void _GerarLinhaBoleto(Boleto document, BoletoConfigurar banco, int lineNumber, PdfPTable table)
         {
             var smallFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 6);
             var regularFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 7);

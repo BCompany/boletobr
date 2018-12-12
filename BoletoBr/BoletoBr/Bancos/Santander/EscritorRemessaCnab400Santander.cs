@@ -301,7 +301,7 @@ namespace BoletoBr.Bancos.Santander
             }
             catch (Exception e)
             {
-                throw new Exception(string.Format("<BoletoBr>{0}Falha na geração do DETALHE do arquivo de REMESSA.",
+                throw new ArgumentException(string.Format("<BoletoBr>{0}Falha na geração do DETALHE do arquivo de REMESSA.",
                     Environment.NewLine), e);
             }
         }

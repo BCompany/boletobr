@@ -2,7 +2,7 @@
 
 namespace BoletoBrPrint
 {
-    public class BancoBoleto
+    public class BoletoConfigurar
     {
         public string NumeroBanco { get; private set; }
         public string PagavelPreferencialmente { get; private set; }
@@ -10,37 +10,41 @@ namespace BoletoBrPrint
 
         private ModeloImpressao modeloImpressao;
 
-        public BancoBoleto(ModeloImpressao modeloImpressao)
+        public BoletoConfigurar(ModeloImpressao modeloImpressao)
         {
             this.modeloImpressao = modeloImpressao;           
 
-            this.PreencherNumeroBanco();
-            this.PreencherLogotipo();
+            this.Customizar();
             this.PreencherPreferenciaPagamento();
         }
 
-        private void PreencherNumeroBanco()
+        private void Customizar()
         {
             switch (this.modeloImpressao)
             {
                 case ModeloImpressao.BancoDoBrasil:
                     this.NumeroBanco = "001-9";
+                    this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoBancoBrasilPNG);
                     break;
 
                 case ModeloImpressao.Bradesco:
                     this.NumeroBanco = "237-2";
+                    this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoBradescoPNG);
                     break;
 
                 case ModeloImpressao.CEF:
                     this.NumeroBanco = "104-0";
+                    this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoCaixaPNG);
                     break;
 
                 case ModeloImpressao.Itau:
                     this.NumeroBanco = "341-7";
+                    this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoItauPNG);
                     break;
 
                 case ModeloImpressao.Santander:
                     this.NumeroBanco = "033-7";
+                    this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoSantanderPNG);
                     break;
 
                 default:
@@ -48,37 +52,7 @@ namespace BoletoBrPrint
                     break;
             }
         }
-
-        private void PreencherLogotipo()
-        {
-            switch (this.modeloImpressao)
-            {
-                case ModeloImpressao.BancoDoBrasil:
-                    this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoBancoBrasilPNG);
-                    break;
-
-                case ModeloImpressao.Bradesco:
-                    this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoBradescoPNG);
-                    break;
-
-                case ModeloImpressao.CEF:
-                    this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoCaixaPNG);
-                    break;
-
-                case ModeloImpressao.Itau:
-                    this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoItauPNG);
-                    break;
-
-                case ModeloImpressao.Santander:
-                    this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoSantanderPNG);
-                    break;
-
-                default:
-                    this.Logotipo = null;
-                    break;
-            }
-        }
-
+        
         private void PreencherPreferenciaPagamento()
         {
             this.PagavelPreferencialmente = string.Join(" ", "LOCAL DE PAGAMENTO: PAGAVEL PREFERENCIALMENTE NO BANCO", modeloImpressao.EnumDescricao());

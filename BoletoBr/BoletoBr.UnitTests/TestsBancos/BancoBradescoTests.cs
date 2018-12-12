@@ -73,7 +73,7 @@ namespace BoletoBr.UnitTests.TestsBancos
         public void CalcularLinhaDigitavelCarteira02Bradesco()
         {
             var remessa = new Remessa(Remessa.EnumTipoAmbiemte.Homologacao, EnumCodigoOcorrenciaRemessa.Registro, "2");
-            var banco = Fabricas.BancoFactory.ObterBanco("237", "2");
+            var banco = Fabricas.BancoFactory.ObterBanco("237");
             var contaBancariaCedente = new ContaBancaria("0534", "7", "2801", "0");
             var cedente = new Cedente("4879962", 0, "99.999.999/9999-99", "Razão Social X", contaBancariaCedente, null);
 
@@ -103,6 +103,9 @@ namespace BoletoBr.UnitTests.TestsBancos
             banco.FormatarBoleto(boleto);
 
             const string linhaDigitavel = "23790.53404 20000.005569 17000.280101 6 69790000050181";
+
+
+
             Assert.AreEqual(linhaDigitavel.Length, boleto.LinhaDigitavelBoleto.Length);
             Assert.AreEqual(linhaDigitavel, boleto.LinhaDigitavelBoleto);
         }
@@ -419,7 +422,7 @@ namespace BoletoBr.UnitTests.TestsBancos
             var remessa = new Remessa(Remessa.EnumTipoAmbiemte.Homologacao, EnumCodigoOcorrenciaRemessa.Registro, "2");
             var banco = Fabricas.BancoFactory.ObterBanco("237", "2");
             var contaBancariaCedente = new ContaBancaria("1923", "2", "31718", "7");
-            var cedente = new Cedente("4872529", 0, "99.999.999/9999-99", "Razão Social X", contaBancariaCedente, null);
+            var cedente = new Cedente("4872529", 0, "02.289.264/0001-32", "BUSINESS COMPANY TECNOLOGIA LTDA", contaBancariaCedente, null);
 
             var sacado = new Sacado("Sacado Fulano de Tal", "999.999.999-99", new Endereco()
             {
@@ -437,16 +440,20 @@ namespace BoletoBr.UnitTests.TestsBancos
 
             var boleto = new Boleto(carteira, cedente, sacado, remessa)
             {
-                NumeroDocumento = "57582",
-                ValorBoleto = Convert.ToDecimal(472.50),
-                IdentificadorInternoBoleto = "57582",
-                DataVencimento = new DateTime(2016, 11, 10),
-                Moeda = "9"
+                NumeroDocumento = "55645",
+                ValorBoleto = Convert.ToDecimal(0.99),
+                IdentificadorInternoBoleto = "55645",
+                DataVencimento = DateTime.Now.Date
+                //Moeda = "9"
             };
 
             banco.FormatarBoleto(boleto);
 
-            const string linhaDigitavel = "23791.92301 90000.005752 82003.171806 6 69740000047250";
+            //const string linhaDigitavel = "23791.92301 90000.005752 82003.171806 6 69740000047250";
+
+            //Test GOJUR - Sidney 11/12/2018
+            const string linhaDigitavel = "23771.92303 90000.005562 45003.171803 7 77350000000099";
+            
             Assert.AreEqual(linhaDigitavel.Length, boleto.LinhaDigitavelBoleto.Length);
             Assert.AreEqual(linhaDigitavel, boleto.LinhaDigitavelBoleto);
         }

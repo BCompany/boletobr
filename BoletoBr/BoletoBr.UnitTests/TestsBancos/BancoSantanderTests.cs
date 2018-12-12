@@ -121,7 +121,9 @@ namespace BoletoBr.UnitTests.TestsBancos
 
             banco.FormatarBoleto(boleto);
 
+            //Test GOJUR - Sidney 11/12/2018
             const string linhaDigitavel = "03399.64322 79400.000000 14369.301016 1 69740000033700";
+
             Assert.AreEqual(boleto.LinhaDigitavelBoleto.Length, linhaDigitavel.Length);
             Assert.AreEqual(linhaDigitavel, boleto.LinhaDigitavelBoleto);
         }

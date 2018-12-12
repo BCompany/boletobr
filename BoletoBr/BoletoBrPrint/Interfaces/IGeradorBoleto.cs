@@ -1,5 +1,4 @@
 ﻿using BoletoBr;
-using System;
 
 namespace BoletoBrPrint.Interfaces
 {

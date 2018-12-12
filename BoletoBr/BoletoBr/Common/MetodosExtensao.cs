@@ -337,7 +337,7 @@ namespace BoletoBr
             var tamanhoPreenchimento = ate - inicio;
             if (valorPreencher.Length != tamanhoPreenchimento)
             {
-                throw new Exception("BoletoBr: Valor a Preencher: " + valorPreencher +
+                throw new ArgumentException("BoletoBr: Valor a Preencher: " + valorPreencher +
                                     " é diferente do tamanho do preenchimento informado. Posição inicial: " + de +
                                     " até " + ate);
             }

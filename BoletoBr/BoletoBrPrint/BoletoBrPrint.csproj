@@ -45,8 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bancos\Especificos_nao_utilizado\GeradorBoletoSantanderPDF.cs" />
-    <Compile Include="BancoImpressao.cs" />
+    <Compile Include="Bancos\_OLDGeradorBoletoSantanderPDF.cs" />
+    <Compile Include="BoletoConfigurar.cs" />
     <Compile Include="BoletoFabrica.cs" />
     <Compile Include="Resources\BoletoBrPrint.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -54,7 +54,7 @@
       <DependentUpon>BoletoBrPrint.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
-    <Compile Include="Bancos\Generico\BoletoGerador.cs" />
+    <Compile Include="Bancos\BoletoGeradoPadrao.cs" />
     <Compile Include="Interfaces\IGeradorBoleto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -87,5 +87,6 @@
   <ItemGroup>
     <None Include="Resources\Imagens\LogotipoItauPNG.bin" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

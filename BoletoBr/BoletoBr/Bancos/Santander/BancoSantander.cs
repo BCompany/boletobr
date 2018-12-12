@@ -47,7 +47,7 @@ namespace BoletoBr.Bancos.Santander
             if (
                 !((boleto.CarteiraCobranca.Codigo == "102") || (boleto.CarteiraCobranca.Codigo == "101") ||
                   (boleto.CarteiraCobranca.Codigo == "201")))
-                throw new NotImplementedException("Carteira não implementada.");
+                throw new NotImplementedException("Carteira de cobrança não disponível para este banco");
 
             //Banco 008  - Utilizar somente 09 posições do Nosso Numero (08 posições + DV), zerando os 04 primeiros dígitos
             if (CodigoBanco == "008")
@@ -69,7 +69,7 @@ namespace BoletoBr.Bancos.Santander
             if (CodigoBanco == "353")
             {
                 if (boleto.NossoNumeroFormatado.Length != 7)
-                    throw new NotImplementedException("Nosso Número deve ter 7 posições para o banco 353.");
+                    throw new NotImplementedException("Nosso Número deve ter 7 posições para o banco 353.");                                 
             }
 
             if (boleto.CedenteBoleto.CodigoCedente.ToString().Length > 7)
