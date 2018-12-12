@@ -19,10 +19,10 @@ namespace BoletoBr.Bancos.Bradesco
         public string EscreverHeader(HeaderRemessaCnab400 infoHeader)
         {
             if (infoHeader == null)
-                throw new Exception("Não há informações para geração do HEADER");
+                throw new ArgumentException("Não há informações para geração do HEADER");
 
             if (infoHeader.NumeroSequencialRemessa == 0)
-                throw new Exception("Sequencial da remessa não foi informado na geração do HEADER.");
+                throw new ArgumentException("Sequencial da remessa não foi informado na geração do HEADER.");
 
             var nomeEmpresa = string.Empty;
             if (infoHeader.NomeEmpresa.Length > 30)
@@ -45,8 +45,7 @@ namespace BoletoBr.Bancos.Bradesco
                 header = header.PreencherValorNaLinha(95, 100, DateTime.Now.ToString("ddMMyy"));
                 header = header.PreencherValorNaLinha(101, 108, string.Empty.PadRight(8, ' '));
                 header = header.PreencherValorNaLinha(109, 110, "MX");
-                header = header.PreencherValorNaLinha(111, 117,
-                    infoHeader.NumeroSequencialRemessa.ToString().PadLeft(7, '0'));
+                header = header.PreencherValorNaLinha(111, 117, infoHeader.NumeroSequencialRemessa.ToString().PadLeft(7, '0'));
                 header = header.PreencherValorNaLinha(118, 394, string.Empty.PadRight(277, ' '));
                 header = header.PreencherValorNaLinha(395, 400, "000001");
 
@@ -413,9 +412,9 @@ namespace BoletoBr.Bancos.Bradesco
 
                 return detalhe;
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                throw new Exception(string.Format("<BoletoBr>{0}Falha na geração do DETALHE do arquivo de REMESSA.",
+                throw new ArgumentException(string.Format("<BoletoBr>{0}Falha na geração do DETALHE do arquivo de REMESSA.",
                     Environment.NewLine), e);
             }
         }
@@ -423,7 +422,7 @@ namespace BoletoBr.Bancos.Bradesco
         public string EscreverTrailer(TrailerRemessaCnab400 infoTrailer, int sequenciaRegistro)
         {
             if (infoTrailer == null)
-                throw new Exception("Os dados não foram informados na geração do TRAILER.");
+                throw new ArgumentException("Os dados não foram informados na geração do TRAILER.");
 
             var trailer = new string(' ', 400);
             try
@@ -434,7 +433,7 @@ namespace BoletoBr.Bancos.Bradesco
 
                 return trailer;
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
                 throw new Exception(string.Format("<BoletoBr>{0}Falha na geração do TRAILER do arquivo de REMESSA.",
                     Environment.NewLine), e);

@@ -47,9 +47,9 @@ namespace BoletoBr.Bancos.Itau
 
                 return header;
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                throw new Exception(string.Format("BoletoBr{0}Falha na geração do HEADER do arquivo de REMESSA.",
+                throw new ArgumentException(string.Format("BoletoBr{0}Falha na geração do HEADER do arquivo de REMESSA.",
                     Environment.NewLine), e);
             }
         }
@@ -66,8 +66,6 @@ namespace BoletoBr.Bancos.Itau
 
             // Na geração do detalhe na remessa não está sendo tratado os casos de cancelamento das instruções nas posições 34-37
 
-            #region Variáveis
-
             var objBanco = BancoFactory.ObterBanco(infoDetalhe.CodigoBanco);
 
             //string nossoNumeroCarteira =
@@ -83,8 +81,6 @@ namespace BoletoBr.Bancos.Itau
             string cidadeSacado = string.Empty;
 
             string nomeSacado = string.Empty;
-
-            #endregion
 
             if (String.IsNullOrEmpty(infoDetalhe.EnderecoPagador))
                 enderecoSacado.PadRight(40, ' ');
@@ -113,8 +109,7 @@ namespace BoletoBr.Bancos.Itau
                 nomeSacado = infoDetalhe.NomePagador.Substring(0, 30).ToUpper();
             else
                 nomeSacado = infoDetalhe.NomePagador.PadRight(30, ' ').ToUpper();
-
-
+            
             var detalhe = new string(' ', 400);
             try
             {
@@ -188,12 +183,11 @@ namespace BoletoBr.Bancos.Itau
                 detalhe = detalhe.PreencherValorNaLinha(143, 147, string.Empty.PadLeft(5, '0'));
                 // Agência onde o título será cobrado
                 // Espécie do documento padronizado para DM - Duplicata Mercantil
-                detalhe = detalhe.PreencherValorNaLinha(148, 149,
-                    infoDetalhe.Especie.Sigla.Equals("DM") ? "01" : infoDetalhe.Especie.Codigo.ToString());
-                if (String.IsNullOrEmpty(infoDetalhe.Aceite))
-                    detalhe = detalhe.PreencherValorNaLinha(150, 150, "N");
-                else
-                    detalhe = detalhe.PreencherValorNaLinha(150, 150, infoDetalhe.Aceite.Equals("A") ? "A" : "N");
+                detalhe = detalhe.PreencherValorNaLinha(148, 149, 
+                    infoDetalhe.Especie.Sigla.Equals("DM") ? "01" : 
+                    infoDetalhe.Especie.Codigo.ToString().Length <=1? "0" + infoDetalhe.Especie.Codigo.ToString() : infoDetalhe.Especie.Codigo.ToString()) ;
+
+                detalhe = detalhe.PreencherValorNaLinha(150, 150, infoDetalhe.Aceite.Equals("A") ? "A" : "N");
                 // Identificação de Título Aceitou ou Não Aceito
                 detalhe = detalhe.PreencherValorNaLinha(151, 156, infoDetalhe.DataEmissao.ToString("ddMMyy"));
                 // Data da Emissão do Título
@@ -340,9 +334,9 @@ namespace BoletoBr.Bancos.Itau
                 
                 return detalhe;
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                throw new Exception(string.Format("<BoletoBr>{0}Falha na geração do DETALHE do arquivo de REMESSA.",
+                throw new ArgumentException(string.Format("<BoletoBr>{0}Falha na geração do DETALHE do arquivo de REMESSA.",
                     Environment.NewLine), e);
             }
         }

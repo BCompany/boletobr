@@ -79,7 +79,8 @@ namespace BoletoBr
         public DateTime DataOutrosDescontos { get; set; }
         public string TipoModalidade { get; set; }
         public string CodigoBarraBoleto { get; set; }
-        public string LinhaDigitavelBoleto { get; set; }      
+        public string LinhaDigitavelBoleto { get; set; }
+        public int NumeroSequencialRegistro { get; set; }
         public TipoArquivo TipoArquivo { get; set; }
         public string CodigoDoProduto { get; set; }
         public int QtdDias { get; set; }

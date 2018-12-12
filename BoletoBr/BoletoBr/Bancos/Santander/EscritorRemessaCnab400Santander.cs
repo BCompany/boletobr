@@ -11,8 +11,6 @@ namespace BoletoBr.Bancos.Santander
     public class EscritorRemessaCnab400Santander : IEscritorArquivoRemessaCnab400
     {
         private RemessaCnab400 _remessaEscrever;
-        private int _numeroSequencialDeRegistro = 0;
-        private int _numeroAtualDeRegistro = 0;
 
         public EscritorRemessaCnab400Santander(RemessaCnab400 remessaEscrever)
         {
@@ -54,9 +52,9 @@ namespace BoletoBr.Bancos.Santander
 
                 return header;
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                throw new Exception(string.Format("BoletoBr{0}Falha na geração do HEADER do arquivo de REMESSA.",
+                throw new ArgumentException(string.Format("BoletoBr{0}Falha na geração do HEADER do arquivo de REMESSA.",
                     Environment.NewLine), e);
             }
         }
@@ -299,7 +297,7 @@ namespace BoletoBr.Bancos.Santander
 
                 return detalhe;
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
                 throw new ArgumentException(string.Format("<BoletoBr>{0}Falha na geração do DETALHE do arquivo de REMESSA.",
                     Environment.NewLine), e);
