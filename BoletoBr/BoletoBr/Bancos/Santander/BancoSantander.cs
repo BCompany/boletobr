@@ -929,6 +929,8 @@ namespace BoletoBr.Bancos.Santander
                 var leitor = new LeitorRetornoCnab240Santander(linhasArquivo);
                 var retornoProcessado = leitor.ProcessarRetorno();
 
+
+
                 var objRetornar = new RetornoGenerico(retornoProcessado);
                 return objRetornar;
             }
@@ -950,18 +952,12 @@ namespace BoletoBr.Bancos.Santander
             objRetornar.RegistrosDetalhe = objRetornar.RegistrosDetalhe.Where(ocorrencia => ocorrencia.CodigoOcorrencia == "6").ToList();
 
             if (objRetornar.RetornoCnab240Especifico != null)
-            {
-
                 foreach (var lote in objRetornar.RetornoCnab240Especifico.Lotes)
-                {
                     lote.RegistrosDetalheSegmentos = lote.RegistrosDetalheSegmentos.Where(ocorrencia => ocorrencia.SegmentoT.CodigoMovimento == 6 || ocorrencia.SegmentoU.CodigoMovimento == 6).ToList();
-                }
-            }
+
 
             if (objRetornar.RetornoCnab400Especifico != null)
-            {
                 throw new Exception("Nao implementado para retorno CNAB400 - Santader");
-            }
 
             return objRetornar;
 

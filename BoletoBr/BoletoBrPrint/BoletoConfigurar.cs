@@ -16,7 +16,6 @@ namespace BoletoBrPrint
             this.modelo = modelo;           
 
             this.CustomizarModelo();
-
             this.PagavelPreferencialmente = string.Join(" ", "LOCAL DE PAGAMENTO: PAGAVEL PREFERENCIALMENTE NO BANCO", modelo.EnumDescricao());
         }
 

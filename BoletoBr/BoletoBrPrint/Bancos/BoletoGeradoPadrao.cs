@@ -10,14 +10,14 @@ namespace BoletoBrPrint.Bancos
 {
     public class BoletoGeradoPadrao : IGeradorBoleto
     {
-        private readonly BoletoConfigurar builder;
+        private readonly BoletoConfigurar config;
 
-        public BoletoGeradoPadrao(BoletoConfigurar builder)
+        public BoletoGeradoPadrao(BoletoConfigurar config)
         {
-            this.builder = builder;
+            this.config = config;
         }
-        
-        public virtual void EmitirBoleto(Boleto document, string path, string fileName)
+
+        public virtual void GerarBoleto(Boleto document, string path, string fileName)
         {
             var pdfDocument = new Document(PageSize.A4);
             
@@ -36,16 +36,16 @@ namespace BoletoBrPrint.Bancos
             var boldMediumFont = new Font(Font.FontFamily.HELVETICA, 9, iTextSharp.text.Font.BOLD);
             var boldBigFont = new Font(Font.FontFamily.HELVETICA, 15, iTextSharp.text.Font.BOLD);
 
-            builder.Logotipo.ScalePercent(9, 8);
+            config.Logotipo.ScalePercent(9, 8);
 
             cell = new PdfPCell();
-            cell.AddElement(builder.Logotipo);
+            cell.AddElement(config.Logotipo);
             cell.BorderWidthLeft = 0;
             cell.BorderWidthTop = 0;
             cell.BorderWidthRight = 0;
             receiptTable.AddCell(cell);
             
-            cell = new PdfPCell(new Phrase(new String(' ', 3) + builder.NumeroBanco, boldBigFont));
+            cell = new PdfPCell(new Phrase(new String(' ', 3) + config.NumeroBanco, boldBigFont));
             cell.Colspan = 3;
             cell.VerticalAlignment = Element.ALIGN_MIDDLE;
             cell.BorderWidthLeft = 0;
@@ -61,7 +61,7 @@ namespace BoletoBrPrint.Bancos
             receiptTable.AddCell(cell);
 
             for (int line = 2; line <= 6; line++)
-                _GerarLinhaBoleto(document, builder, line, receiptTable);
+                _GerarLinhaBoleto(document, config, line, receiptTable);
 
             chunk = new Chunk("Mensagens/Instruções (Texto de Responsabilidade do Cedente) \n", smallFont);
             var messagesText = "";
@@ -70,7 +70,7 @@ namespace BoletoBrPrint.Bancos
 
             chunk = new Chunk(messagesText, regularFont);
             cell = new PdfPCell();
-            cell.MinimumHeight = 150;
+            cell.MinimumHeight = 140;
             cell.AddElement(chunk);
             cell.Colspan = 6;
             receiptTable.AddCell(cell);
@@ -82,13 +82,13 @@ namespace BoletoBrPrint.Bancos
 
             // line 1 
             cell = new PdfPCell();
-            cell.AddElement(builder.Logotipo);
+            cell.AddElement(config.Logotipo);
             cell.BorderWidthLeft = 0;
             cell.BorderWidthTop = 0;
             cell.BorderWidthRight = 0;
             documentTable.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase(new String(' ', 5) + builder.NumeroBanco, boldBigFont));
+            cell = new PdfPCell(new Phrase(new String(' ', 5) + config.NumeroBanco, boldBigFont));
             cell.BorderWidthLeft = 0;
             cell.BorderWidthTop = 0;
             cell.VerticalAlignment = Element.ALIGN_MIDDLE;
@@ -103,7 +103,7 @@ namespace BoletoBrPrint.Bancos
             documentTable.AddCell(cell);
 
             for (int line = 2; line <= 5; line++)
-                _GerarLinhaBoleto(document, builder, line, documentTable);
+                _GerarLinhaBoleto(document, config, line, documentTable);
 
             // Bloco Instruções, Juros, Abatimentos
             chunk = new Chunk("Instruções \n", smallFont);
@@ -113,7 +113,7 @@ namespace BoletoBrPrint.Bancos
 
             chunk = new Chunk(messagesText, regularFont);
             cell = new PdfPCell();
-            cell.MinimumHeight = 150;
+            cell.MinimumHeight = 140;
             cell.AddElement(chunk);
             cell.Colspan = 5;
             documentTable.AddCell(cell);
@@ -150,7 +150,7 @@ namespace BoletoBrPrint.Bancos
             documentTable.AddCell(cell);
 
             // line 6
-            _GerarLinhaBoleto(document, builder, 6, documentTable);
+            _GerarLinhaBoleto(document, config, 6, documentTable);
 
             pdfDocument.Open();
 

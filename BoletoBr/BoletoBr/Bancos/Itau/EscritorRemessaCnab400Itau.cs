@@ -12,6 +12,8 @@ namespace BoletoBr.Bancos.Itau
     {
         private RemessaCnab400 _remessaEscrever;
 
+        public EscritorRemessaCnab400Itau() { }
+
         public EscritorRemessaCnab400Itau(RemessaCnab400 remessaEscrever)
         {
             _remessaEscrever = remessaEscrever;

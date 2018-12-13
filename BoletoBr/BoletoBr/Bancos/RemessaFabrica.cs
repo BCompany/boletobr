@@ -9,25 +9,23 @@ namespace BoletoBr.Bancos
 {
     public static class RemessaFabrica
     {
-        public static IEscritorArquivoRemessaCnab400 GerarArquivo(string codigoBanco, RemessaCnab400 remessa)
+        public static IEscritorArquivoRemessaCnab400 Criar(string codigoBanco)
         {
-            var modelo = codigoBanco.ConverterParaEnumerador();
-
-            var config = new RemessaConfigurar(modelo, remessa);
+            var modelo = codigoBanco.ConverterParaModeloImplementacao();
 
             switch (modelo)
             {
                 case ModeloImplementacao.Bradesco:
-                    return new EscritorRemessaCnab400Bradesco(remessa);
+                    return new EscritorRemessaCnab400Bradesco();
 
                 case ModeloImplementacao.Itau:
-                    return new EscritorRemessaCnab400Itau(remessa);
+                    return new EscritorRemessaCnab400Itau();
 
                 case ModeloImplementacao.Santander:
-                    return new EscritorRemessaCnab400Santander(remessa);
+                    return new EscritorRemessaCnab400Santander();
 
                 default:
-                    throw new ArgumentException("O arquivo de remessa não esta disponível para o banco código:" + remessa.Header.CodigoBanco);
+                    throw new ArgumentException("O arquivo de remessa não esta disponível para o banco código:" + codigoBanco);
             }
         }
     }

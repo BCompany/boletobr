@@ -8,7 +8,7 @@ namespace BoletoBrPrint
     {
         public static IGeradorBoleto Criar(string codigoBanco)
         {
-            var modelo = codigoBanco.ConverterParaEnumerador();
+            var modelo = codigoBanco.ConverterParaModeloImplementacao();
 
             var config = new BoletoConfigurar(modelo);
             

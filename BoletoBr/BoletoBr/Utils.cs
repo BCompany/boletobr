@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BoletoBr
 {
-    public static class Utils
+    public static class BoletoExtensionsMethods
     {
         public static string EnumDescricao<T>(this T e) where T : IConvertible
         {
@@ -31,7 +31,7 @@ namespace BoletoBr
             return "";
         }
 
-        public static ModeloImplementacao ConverterParaEnumerador(this string codigoBanco)
+        public static ModeloImplementacao ConverterParaModeloImplementacao(this string codigoBanco)
         {
             switch (codigoBanco)
             {

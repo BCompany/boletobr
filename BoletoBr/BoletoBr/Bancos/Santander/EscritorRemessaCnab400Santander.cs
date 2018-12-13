@@ -12,6 +12,8 @@ namespace BoletoBr.Bancos.Santander
     {
         private RemessaCnab400 _remessaEscrever;
 
+        public EscritorRemessaCnab400Santander() { }
+
         public EscritorRemessaCnab400Santander(RemessaCnab400 remessaEscrever)
         {
             _remessaEscrever = remessaEscrever;

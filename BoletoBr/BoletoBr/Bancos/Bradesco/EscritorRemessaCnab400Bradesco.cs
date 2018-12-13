@@ -11,6 +11,8 @@ namespace BoletoBr.Bancos.Bradesco
     {
         private RemessaCnab400 _remessaEscrever;
 
+        public EscritorRemessaCnab400Bradesco() {  }
+
         public EscritorRemessaCnab400Bradesco(RemessaCnab400 remessaEscrever)
         {
             _remessaEscrever = remessaEscrever;
@@ -31,6 +33,7 @@ namespace BoletoBr.Bancos.Bradesco
                 nomeEmpresa = infoHeader.NomeEmpresa.PadRight(30, ' ');
 
             var header = new string(' ', 400);
+
             try
             {
                 header = header.PreencherValorNaLinha(1, 1, "0");

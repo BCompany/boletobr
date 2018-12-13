@@ -57,6 +57,7 @@ namespace BoletoBr.Arquivo.CNAB400.Remessa
             this.Instrucoes = boleto.InstrucoesDoBoleto;
             this.TipoCobrancaJuro = boleto.TipoCobrancaJuro;
             this.DataMulta = boleto.DataMulta;
+
             PercentualMulta = boleto.PercentualMulta.BoletoBrToStringSafe().BoletoBrToDecimal();
             ValorMoraDia = boleto.PercentualJurosMora.BoletoBrToStringSafe().BoletoBrToDecimal();
             TipoCarteiraCobranca = boleto.CarteiraCobranca.Tipo;
@@ -122,6 +123,7 @@ namespace BoletoBr.Arquivo.CNAB400.Remessa
         public string DvNossoNumero { get; set; }
         public decimal ValorDescontoDia { get; set; }
         public int IdEmissao { get; set; }
+        public int NumeroSequencialRegistro { get; set; }
         public string IdDebitoAutomatico { get; set; }
         public string IdRateioCredito { get; set; }
         public int IdEnderecamentoDebitoAutomatico { get; set; }
@@ -156,7 +158,6 @@ namespace BoletoBr.Arquivo.CNAB400.Remessa
         public string CepPagador { get; set; }
         public string Mensagem1 { get; set; }
         public string NomeAvalistaOuMensagem2 { get; set; }
-        public int NumeroSequencialRegistro { get; set; }
         public TipoCobrancaJuro TipoCobrancaJuro { get; set; }
         public bool BancoEmiteBoleto { get; set; }
     }
