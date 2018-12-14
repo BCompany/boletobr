@@ -1314,22 +1314,22 @@ namespace BoletoBr.Bancos.Itau
             if (linhasArquivo == null || linhasArquivo.Any() == false)
                 throw new ApplicationException("Arquivo informado é inválido.");
 
-            /* Identifica o layout: 240 ou 400 */
-            if (linhasArquivo.First().Length == 240)
-            {
-                //var leitor = new LeitorRetornoCnab240Itau(linhasArquivo);
-                //var retornoProcessado = leitor.ProcessarRetorno();
+            try
+            { 
+                if (linhasArquivo.First().Length == 240)     
+                    throw new Exception("Arquivo de retorno 240 Posições não foi implementado para o banco Itau");
+            
+                if (linhasArquivo.First().Length == 400)
+                {
+                    var leitor = new LeitorRetornoCnab400Itau(linhasArquivo);
+                    var retornoProcessado = leitor.ProcessarRetorno();
 
-                //var objRetornar = new RetornoGenerico(retornoProcessado);
-                //return objRetornar;
+                    return  new RetornoGenerico(retornoProcessado);
+                }
             }
-            if (linhasArquivo.First().Length == 400)
+            catch (ArgumentException ex)
             {
-                var leitor = new LeitorRetornoCnab400Itau(linhasArquivo);
-                var retornoProcessado = leitor.ProcessarRetorno();
-
-                var objRetornar = new RetornoGenerico(retornoProcessado);
-                return objRetornar;
+                throw new ArgumentException("O arquivo selecionado possui um formato inválido ou não corresponde a conta bancária escolhida", ex);
             }
 
             throw new Exception("Arquivo de RETORNO com " + linhasArquivo.First().Length + " posições, não é suportado.");
@@ -1337,8 +1337,19 @@ namespace BoletoBr.Bancos.Itau
 
         public RetornoGenerico LerArquivoRetornoLiquidacao(List<string> linhasArquivo)
         {
+            var listaRetorno = 
+                this.LerArquivoRetorno(linhasArquivo);
 
-            throw new Exception("Não implementado retorno de liquidacao para o banco");
+            if (listaRetorno.RetornoCnab400Especifico != null)     
+                listaRetorno.RegistrosDetalhe =
+                    (from r in listaRetorno.RegistrosDetalhe
+                     where r.CodigoOcorrencia == "06"
+                     select r).ToList();
+
+            if (listaRetorno.RetornoCnab240Especifico != null)
+                throw new ArgumentException("Nao implementado para retorno CNAB250 - Itau");
+
+            return listaRetorno;            
         }
 
         public RemessaCnab240 GerarArquivoRemessaCnab240(RemessaCnab240 remessaCnab240, List<Boleto> boletos)

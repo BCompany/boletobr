@@ -576,7 +576,7 @@ namespace BoletoBr.Bancos.Bradesco
                 {
                     return new EspecieDocumento((int) especie)
                     {
-                        Codigo = 98,
+                        Codigo = 12,
                         Descricao = "Duplicata de Serv.",
                         Sigla = "DS"
                     };
@@ -694,15 +694,9 @@ namespace BoletoBr.Bancos.Bradesco
             if (linhasArquivo == null || linhasArquivo.Any() == false)
                 throw new ApplicationException("Arquivo informado é inválido.");
 
-            /* Identifica o layout: 240 ou 400 */
             if (linhasArquivo.First().Length == 240)
-            {
-                var leitor = new LeitorRetornoCnab240Bradesco(linhasArquivo);
-                var retornoProcessado = leitor.ProcessarRetorno();
+                throw new Exception("Arquivo de retorno 240 Posições não foi implementado para o banco Bradesco");
 
-                var objRetornar = new RetornoGenerico(retornoProcessado);
-                return objRetornar;
-            }
             if (linhasArquivo.First().Length == 400)
             {
                 var leitor = new LeitorRetornoCnab400Bradesco(linhasArquivo);
@@ -717,8 +711,19 @@ namespace BoletoBr.Bancos.Bradesco
 
         public RetornoGenerico LerArquivoRetornoLiquidacao(List<string> linhasArquivo)
         {
+            var listaRetorno =
+                this.LerArquivoRetorno(linhasArquivo);
 
-            throw new Exception("Não implementado retorno de liquidacao para o banco");
+            if (listaRetorno.RetornoCnab400Especifico != null)    
+                listaRetorno.RegistrosDetalhe =
+                    (from r in listaRetorno.RegistrosDetalhe
+                     where r.CodigoOcorrencia == "02"
+                     select r).ToList();
+
+            if (listaRetorno.RetornoCnab240Especifico != null)
+                throw new ArgumentException("Nao implementado para retorno CNAB250 - Bradesco");
+
+            return listaRetorno;
         }
 
         public RemessaCnab240 GerarArquivoRemessaCnab240(List<Boleto> boletos)

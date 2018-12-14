@@ -73,7 +73,7 @@
     <Compile Include="Bancos\Daycoval\LeitorRetornoCnab400Daycoval.cs" />
     <Compile Include="Bancos\RemessaFabrica.cs" />
     <Compile Include="Bancos\Hsbc\EscritorRemessaCnab400Hsbc.cs" />
-    <Compile Include="Bancos\RetornoAdapter.cs" />
+    <Compile Include="Bancos\RetornoFabrica.cs" />
     <Compile Include="Bancos\Safra\BancoSafra.cs" />
     <Compile Include="Bancos\Safra\EscritorRemessaCnab400Safra.cs" />
     <Compile Include="Bancos\Safra\LeitorRetornoCnab400Safra.cs" />
@@ -194,7 +194,6 @@
     <Compile Include="CalculoModulo\ICalculadoraModulo10.cs" />
     <Compile Include="CalculoModulo\ICalculadoraModulo11.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Bancos\RetornoFabrica.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

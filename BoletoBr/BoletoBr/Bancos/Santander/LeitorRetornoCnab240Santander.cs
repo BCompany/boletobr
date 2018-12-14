@@ -7,12 +7,11 @@ using BoletoBr.Arquivo.CNAB240.Retorno;
 
 namespace BoletoBr.Bancos.Santander
 {
-    class LeitorRetornoCnab240Santander : ILeitorArquivoRetornoCnab240
-
+    public class LeitorRetornoCnab240Santander : ILeitorArquivoRetornoCnab240
     {
-
         private readonly List<string> _linhasArquivo;
 
+        public LeitorRetornoCnab240Santander() { }
 
         public LeitorRetornoCnab240Santander(List<string> linhasArquivo)
         {
@@ -23,8 +22,6 @@ namespace BoletoBr.Bancos.Santander
 
         public RetornoCnab240 ProcessarRetorno()
         {
-
-
             /* Validações */
             #region Validações
             ValidaArquivoRetorno();
@@ -37,10 +34,8 @@ namespace BoletoBr.Bancos.Santander
 
             foreach (var linhaAtual in _linhasArquivo)
             {
-
                 if (linhaAtual.ExtrairValorDaLinha(8, 8) == "0")
                     objetoRetorno.Header = ObterHeader(linhaAtual);
-
 
                 /* Header de Lote */
                 if (linhaAtual.ExtrairValorDaLinha(8, 8) == "1")
@@ -51,7 +46,6 @@ namespace BoletoBr.Bancos.Santander
 
                     ultimoLoteIdentificado.HeaderLote = ObterHeaderLote(linhaAtual);
                 }
-
 
                 if (linhaAtual.ExtrairValorDaLinha(8, 8) == "3")
                 {
@@ -73,7 +67,6 @@ namespace BoletoBr.Bancos.Santander
 
                     }
                 }
-
 
                 /* Trailer de Lote */
                 if (linhaAtual.ExtrairValorDaLinha(8, 8) == "5")
@@ -147,94 +140,111 @@ namespace BoletoBr.Bancos.Santander
 
         public HeaderRetornoCnab240 ObterHeader(string linha)
         {
-
-            var objetoRetorno = new HeaderRetornoCnab240
+            try
             {
-                CodigoBanco = linha.ExtrairValorDaLinha(1, 3).BoletoBrToInt(),
-                LoteServico = linha.ExtrairValorDaLinha(4, 7),
-                CodigoRegistro = linha.ExtrairValorDaLinha(8, 8).BoletoBrToInt(),
-                TipoInscricaoEmpresa = linha.ExtrairValorDaLinha(17, 17).BoletoBrToInt(),
-                NumeroInscricaoEmpresa = linha.ExtrairValorDaLinha(18, 32),
-                CodigoAgencia = linha.ExtrairValorDaLinha(33, 36).BoletoBrToInt(),
-                DvCodigoAgencia = linha.ExtrairValorDaLinha(37, 37),
-                ContaCorrente = linha.ExtrairValorDaLinha(38, 46),
-                DvContaCorrente = linha.ExtrairValorDaLinha(47, 47),
-                Convenio = linha.ExtrairValorDaLinha(53, 61),
-                NomeDoBeneficiario = linha.ExtrairValorDaLinha(73, 102),
-                NomeDoBanco = linha.ExtrairValorDaLinha(103, 132),
-                CodigoRemessaRetorno = linha.ExtrairValorDaLinha(143, 143).BoletoBrToInt(),
-                DataGeracaoGravacao = Convert.ToDateTime(linha.ExtrairValorDaLinha(144, 151).ToDateTimeFromDdMmAa()),
-                NumeroSequencial = linha.ExtrairValorDaLinha(158, 163).BoletoBrToInt(),
-                VersaoLayout = linha.ExtrairValorDaLinha(164, 166),
+                var objetoRetorno = new HeaderRetornoCnab240
+                {
+                    CodigoBanco = linha.ExtrairValorDaLinha(1, 3).BoletoBrToInt(),
+                    LoteServico = linha.ExtrairValorDaLinha(4, 7),
+                    CodigoRegistro = linha.ExtrairValorDaLinha(8, 8).BoletoBrToInt(),
+                    TipoInscricaoEmpresa = linha.ExtrairValorDaLinha(17, 17).BoletoBrToInt(),
+                    NumeroInscricaoEmpresa = linha.ExtrairValorDaLinha(18, 32),
+                    CodigoAgencia = linha.ExtrairValorDaLinha(33, 36).BoletoBrToInt(),
+                    DvCodigoAgencia = linha.ExtrairValorDaLinha(37, 37),
+                    ContaCorrente = linha.ExtrairValorDaLinha(38, 46),
+                    DvContaCorrente = linha.ExtrairValorDaLinha(47, 47),
+                    Convenio = linha.ExtrairValorDaLinha(53, 61),
+                    NomeDoBeneficiario = linha.ExtrairValorDaLinha(73, 102),
+                    NomeDoBanco = linha.ExtrairValorDaLinha(103, 132),
+                    CodigoRemessaRetorno = linha.ExtrairValorDaLinha(143, 143).BoletoBrToInt(),
+                    DataGeracaoGravacao = Convert.ToDateTime(linha.ExtrairValorDaLinha(144, 151).ToDateTimeFromDdMmAa()),
+                    NumeroSequencial = linha.ExtrairValorDaLinha(158, 163).BoletoBrToInt(),
+                    VersaoLayout = linha.ExtrairValorDaLinha(164, 166),
 
-            };
-
-            return objetoRetorno;
-
+                };
+                
+                return objetoRetorno;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("O arquivo selecionado possui um formato inválido ou não corresponde a conta bancária escolhida", ex);
+            }
         }
 
 
         public HeaderLoteRetornoCnab240 ObterHeaderLote(string linha)
         {
-            var objetoRetorno = new HeaderLoteRetornoCnab240
+            try
             {
-                CodigoBanco = linha.ExtrairValorDaLinha(1, 3).BoletoBrToInt(),
-                LoteServico = linha.ExtrairValorDaLinha(4, 7),
-                CodigoRegistro = linha.ExtrairValorDaLinha(8, 8).BoletoBrToInt(),
-                TipoOperacao = linha.ExtrairValorDaLinha(9, 9),
-                TipoServico = linha.ExtrairValorDaLinha(10, 11).BoletoBrToInt(),
-                VersaoLayoutLote = linha.ExtrairValorDaLinha(14, 16).BoletoBrToInt(),
-                TipoInscricaoEmpresa = linha.ExtrairValorDaLinha(18, 18).BoletoBrToInt(),
-                NumeroInscricaoEmpresa = linha.ExtrairValorDaLinha(19, 33),
-                Convenio = linha.ExtrairValorDaLinha(34, 42),
-                CodigoAgencia = linha.ExtrairValorDaLinha(54, 57).BoletoBrToInt(),
-                DvCodigoAgencia = linha.ExtrairValorDaLinha(58, 58),
-                ContaCorrente = linha.ExtrairValorDaLinha(59, 67),
-                DvContaCorrente = linha.ExtrairValorDaLinha(68, 68),
-                NomeDoBeneficiario = linha.ExtrairValorDaLinha(74, 103),
-                NumeroRemessaRetorno = linha.ExtrairValorDaLinha(184, 191),
-                DataGeracaoGravacao = Convert.ToDateTime(linha.ExtrairValorDaLinha(192, 199).ToDateTimeFromDdMmAa())
-            };
+                var objetoRetorno = new HeaderLoteRetornoCnab240
+                {
+                    CodigoBanco = linha.ExtrairValorDaLinha(1, 3).BoletoBrToInt(),
+                    LoteServico = linha.ExtrairValorDaLinha(4, 7),
+                    CodigoRegistro = linha.ExtrairValorDaLinha(8, 8).BoletoBrToInt(),
+                    TipoOperacao = linha.ExtrairValorDaLinha(9, 9),
+                    TipoServico = linha.ExtrairValorDaLinha(10, 11).BoletoBrToInt(),
+                    VersaoLayoutLote = linha.ExtrairValorDaLinha(14, 16).BoletoBrToInt(),
+                    TipoInscricaoEmpresa = linha.ExtrairValorDaLinha(18, 18).BoletoBrToInt(),
+                    NumeroInscricaoEmpresa = linha.ExtrairValorDaLinha(19, 33),
+                    Convenio = linha.ExtrairValorDaLinha(34, 42),
+                    CodigoAgencia = linha.ExtrairValorDaLinha(54, 57).BoletoBrToInt(),
+                    DvCodigoAgencia = linha.ExtrairValorDaLinha(58, 58),
+                    ContaCorrente = linha.ExtrairValorDaLinha(59, 67),
+                    DvContaCorrente = linha.ExtrairValorDaLinha(68, 68),
+                    NomeDoBeneficiario = linha.ExtrairValorDaLinha(74, 103),
+                    NumeroRemessaRetorno = linha.ExtrairValorDaLinha(184, 191),
+                    DataGeracaoGravacao = Convert.ToDateTime(linha.ExtrairValorDaLinha(192, 199).ToDateTimeFromDdMmAa())
+                };
 
-            return objetoRetorno;
+                return objetoRetorno;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("O arquivo selecionado possui um formato inválido ou não corresponde a conta bancária escolhida", ex);
+            }
         }
 
         public DetalheSegmentoTRetornoCnab240 ObterRegistrosDetalheT(string linha)
         {
-
-            var objetoRetorno = new DetalheSegmentoTRetornoCnab240
+            try
             {
-                CodigoBanco = linha.ExtrairValorDaLinha(1, 3).BoletoBrToInt(),
-                LoteServico = linha.ExtrairValorDaLinha(4, 7),
-                CodigoRegistro = linha.ExtrairValorDaLinha(8, 8).BoletoBrToInt(),
-                NumeroRegistro = linha.ExtrairValorDaLinha(9, 13).BoletoBrToInt(),
-                CodigoSegmento = linha.ExtrairValorDaLinha(14, 14),
-                CodigoMovimento = linha.ExtrairValorDaLinha(16, 17).BoletoBrToInt(),
-                Agencia = linha.ExtrairValorDaLinha(18, 21).BoletoBrToInt(),
-                DigitoAgencia = linha.ExtrairValorDaLinha(22, 22),
-                ContaCorrente = linha.ExtrairValorDaLinha(23, 31).BoletoBrToInt(),
-                DigitoContaCorrente = linha.ExtrairValorDaLinha(32, 32),
-                NossoNumero = linha.ExtrairValorDaLinha(41, 53),
-                CodigoCarteira = linha.ExtrairValorDaLinha(54, 54).BoletoBrToInt(),
-                NumeroDocumento = linha.ExtrairValorDaLinha(55, 69),
-                DataVencimento = Convert.ToDateTime(linha.ExtrairValorDaLinha(70, 77).ToDateTimeFromDdMmAaaa()),
-                ValorTitulo = linha.ExtrairValorDaLinha(78, 92).BoletoBrToDecimal() / 100,
-                BancoCobradorRecebedor = linha.ExtrairValorDaLinha(93, 95).BoletoBrToInt(),
-                AgenciaCobradoraRecebedora = linha.ExtrairValorDaLinha(96, 99).BoletoBrToInt(),
-                DvAgenciaConta = linha.ExtrairValorDaLinha(100, 100),
-                IdentificacaoTituloNaEmpresa = linha.ExtrairValorDaLinha(101, 125),
-                Moeda = linha.ExtrairValorDaLinha(126, 127).BoletoBrToInt(),
-                TipoInscricaoSacado = linha.ExtrairValorDaLinha(128, 128).BoletoBrToInt(),
-                NumeroInscricaoSacado = linha.ExtrairValorDaLinha(129, 143).BoletoBrToLong(),
-                NomeSacado = linha.ExtrairValorDaLinha(144, 183),
-                NumeroContrato = linha.ExtrairValorDaLinha(184, 193).BoletoBrToLong(),
-                ValorTarifas = linha.ExtrairValorDaLinha(194, 208).BoletoBrToDecimal() / 100,
-                MotivoOcorrencia = linha.ExtrairValorDaLinha(209, 218)
+                var objetoRetorno = new DetalheSegmentoTRetornoCnab240
+                {
+                    CodigoBanco = linha.ExtrairValorDaLinha(1, 3).BoletoBrToInt(),
+                    LoteServico = linha.ExtrairValorDaLinha(4, 7),
+                    CodigoRegistro = linha.ExtrairValorDaLinha(8, 8).BoletoBrToInt(),
+                    NumeroRegistro = linha.ExtrairValorDaLinha(9, 13).BoletoBrToInt(),
+                    CodigoSegmento = linha.ExtrairValorDaLinha(14, 14),
+                    CodigoMovimento = linha.ExtrairValorDaLinha(16, 17).BoletoBrToInt(),
+                    Agencia = linha.ExtrairValorDaLinha(18, 21).BoletoBrToInt(),
+                    DigitoAgencia = linha.ExtrairValorDaLinha(22, 22),
+                    ContaCorrente = linha.ExtrairValorDaLinha(23, 31).BoletoBrToInt(),
+                    DigitoContaCorrente = linha.ExtrairValorDaLinha(32, 32),
+                    NossoNumero = linha.ExtrairValorDaLinha(41, 53),
+                    CodigoCarteira = linha.ExtrairValorDaLinha(54, 54).BoletoBrToInt(),
+                    NumeroDocumento = linha.ExtrairValorDaLinha(55, 69),
+                    DataVencimento = Convert.ToDateTime(linha.ExtrairValorDaLinha(70, 77).ToDateTimeFromDdMmAaaa()),
+                    ValorTitulo = linha.ExtrairValorDaLinha(78, 92).BoletoBrToDecimal() / 100,
+                    BancoCobradorRecebedor = linha.ExtrairValorDaLinha(93, 95).BoletoBrToInt(),
+                    AgenciaCobradoraRecebedora = linha.ExtrairValorDaLinha(96, 99).BoletoBrToInt(),
+                    DvAgenciaConta = linha.ExtrairValorDaLinha(100, 100),
+                    IdentificacaoTituloNaEmpresa = linha.ExtrairValorDaLinha(101, 125),
+                    Moeda = linha.ExtrairValorDaLinha(126, 127).BoletoBrToInt(),
+                    TipoInscricaoSacado = linha.ExtrairValorDaLinha(128, 128).BoletoBrToInt(),
+                    NumeroInscricaoSacado = linha.ExtrairValorDaLinha(129, 143).BoletoBrToLong(),
+                    NomeSacado = linha.ExtrairValorDaLinha(144, 183),
+                    NumeroContrato = linha.ExtrairValorDaLinha(184, 193).BoletoBrToLong(),
+                    ValorTarifas = linha.ExtrairValorDaLinha(194, 208).BoletoBrToDecimal() / 100,
+                    MotivoOcorrencia = linha.ExtrairValorDaLinha(209, 218)
 
-            };
+                };
 
-            return objetoRetorno;
-
+                return objetoRetorno;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("O arquivo selecionado possui um formato inválido ou não corresponde a conta bancária escolhida", ex);
+            }
         }
 
         public DetalheSegmentoURetornoCnab240 ObterRegistrosDetalheU(string linha)

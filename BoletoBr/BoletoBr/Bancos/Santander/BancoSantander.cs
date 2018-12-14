@@ -923,27 +923,30 @@ namespace BoletoBr.Bancos.Santander
             if (linhasArquivo == null || linhasArquivo.Any() == false)
                 throw new ApplicationException("Arquivo informado é inválido.");
 
-            /* Identifica o layout: 240 ou 400 */
-            if (linhasArquivo.First().Length == 240)
+            try
             {
-                var leitor = new LeitorRetornoCnab240Santander(linhasArquivo);
-                var retornoProcessado = leitor.ProcessarRetorno();
+                if (linhasArquivo.First().Length == 240)
+                {
+                    var leitor = new LeitorRetornoCnab240Santander(linhasArquivo);
+                    var retornoProcessado = leitor.ProcessarRetorno();
 
+                    return new RetornoGenerico(retornoProcessado);
+                }
 
+                if (linhasArquivo.First().Length == 400)
+                {
+                    var leitor = new LeitorRetornoCnab400Santander(linhasArquivo);
+                    var retornoProcessado = leitor.ProcessarRetorno();
 
-                var objRetornar = new RetornoGenerico(retornoProcessado);
-                return objRetornar;
+                    return new RetornoGenerico(retornoProcessado);
+                }
             }
-            if (linhasArquivo.First().Length == 400)
+            catch(ArgumentException ex)
             {
-                var leitor = new LeitorRetornoCnab400Santander(linhasArquivo);
-                var retornoProcessado = leitor.ProcessarRetorno();
-
-                var objRetornar = new RetornoGenerico(retornoProcessado);
-                return objRetornar;
+                throw new ArgumentException("O arquivo selecionado possui um formato inválido ou não corresponde a conta bancária escolhida", ex);
             }
 
-            throw new Exception("Arquivo de RETORNO com " + linhasArquivo.First().Length + " posições, não é suportado.");
+            throw new ArgumentException("Arquivo de retorno com " + linhasArquivo.First().Length + " posições, não é suportado.");
         }
 
         public RetornoGenerico LerArquivoRetornoLiquidacao(List<string> linhasArquivo)
@@ -954,16 +957,12 @@ namespace BoletoBr.Bancos.Santander
             if (objRetornar.RetornoCnab240Especifico != null)
                 foreach (var lote in objRetornar.RetornoCnab240Especifico.Lotes)
                     lote.RegistrosDetalheSegmentos = lote.RegistrosDetalheSegmentos.Where(ocorrencia => ocorrencia.SegmentoT.CodigoMovimento == 6 || ocorrencia.SegmentoU.CodigoMovimento == 6).ToList();
-
-
+            
             if (objRetornar.RetornoCnab400Especifico != null)
-                throw new Exception("Nao implementado para retorno CNAB400 - Santader");
+                throw new ArgumentException("Nao implementado para retorno CNAB400 - Santader");
 
             return objRetornar;
-
         }
-
-
 
         public RemessaCnab240 GerarArquivoRemessaCnab240(List<Boleto> boletos)
         {

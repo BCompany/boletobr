@@ -10,3 +10,4 @@ namespace BoletoBr.Interfaces
         void ValidarRemessa(RemessaCnab400 remessaValidar);
     }
 }
+

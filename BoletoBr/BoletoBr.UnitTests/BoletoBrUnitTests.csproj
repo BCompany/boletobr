@@ -70,6 +70,7 @@
     <Compile Include="TestsBancosRetorno\TestRetornoBradesco.cs" />
     <Compile Include="TestsBancosRetorno\TestRetornoCef.cs" />
     <Compile Include="TestsBancosRetorno\TestRetornoDaycoval.cs" />
+    <Compile Include="TestsBancosRetorno\TestsRetornoGenerico.cs" />
     <Compile Include="TestsBancosRetorno\TestRetornoHsbcCnr.cs" />
     <Compile Include="TestsBancosRetorno\TestRetornoBancoBRB.cs" />
     <Compile Include="TestsBancos\BancoAmazoniaTests.cs" />

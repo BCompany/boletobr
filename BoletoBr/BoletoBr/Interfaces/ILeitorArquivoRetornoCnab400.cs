@@ -2,7 +2,7 @@
 
 namespace BoletoBr.Interfaces
 {
-    interface ILeitorArquivoRetornoCnab400
+    public interface ILeitorArquivoRetornoCnab400
     {
         RetornoCnab400 ProcessarRetorno(TipoArquivo tipoArquivo);
         void ValidaArquivoRetorno();

@@ -87,8 +87,9 @@ namespace BoletoBr.Arquivo.Generico.Retorno
             Header.DvConta = retornoCnab400.Header.DvContaCorrente;
             Header.NomeEmpresa = retornoCnab400.Header.NomeDoBeneficiario;
             Header.NomeDoBanco = retornoCnab400.Header.NomeDoBanco;
-            Header.NumeroInscricaoEmpresa =
-                retornoCnab400.RegistrosDetalhe.FirstOrDefault()?.IdentificacaoEmpresaNoBanco;
+
+            if (retornoCnab400.RegistrosDetalhe.FirstOrDefault() != null)
+                Header.NumeroInscricaoEmpresa = retornoCnab400.RegistrosDetalhe.FirstOrDefault().IdentificacaoEmpresaNoBanco;
 
             foreach (var registroAtual in retornoCnab400.RegistrosDetalhe)
             {
@@ -123,10 +124,22 @@ namespace BoletoBr.Arquivo.Generico.Retorno
                     ValorLancamento = registroAtual.ValorLancamento,
                     InscricaoSacado = registroAtual.NumeroInscricaoSacado.ToString(CultureInfo.InvariantCulture),
                     NomeSacado = registroAtual.NomeSacado,
-                    CodigoOcorrencia = String.IsNullOrEmpty(registroAtual.MotivoCodigoOcorrencia) ? "00" : registroAtual.MotivoCodigoOcorrencia,
                     MensagemOcorrenciaRetornoBancario = ocorrencia.Descricao,
                     Ocorrencia = ocorrencia
                 };
+
+                if (RegistrosDetalhe.Count == 90)
+                    registroAtual.CodigoDeOcorrencia = 12;
+
+                if (banco.CodigoBanco == "033")         //a implementação abaixo já existia para o Santander, como esta em produção eu mantive - Sidney 14/12/2018
+                    detalheGenericoAdd.CodigoOcorrencia =
+                        String.IsNullOrEmpty(registroAtual.MotivoCodigoOcorrencia) ? "00" : registroAtual.MotivoCodigoOcorrencia;
+                else
+                    detalheGenericoAdd.CodigoOcorrencia =
+                        registroAtual.CodigoDeOcorrencia < 10?
+                                      "0" + registroAtual.CodigoDeOcorrencia.ToString() : 
+                                      registroAtual.CodigoDeOcorrencia.ToString();
+
 
                 //DATA LIQUIDAÇÃO E DATA OCORRENCIA
                 if (detalheGenericoAdd.Pago && detalheGenericoAdd.DataLiquidacao == DateTime.MinValue)
