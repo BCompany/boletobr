@@ -143,18 +143,15 @@ namespace BoletoBr.Bancos.Itau
                 objRetornar.CodigoDoDocumentoBanco = linha.ExtrairValorDaLinha(63, 70);
                 // Brancos
                 objRetornar.NumeroCarteira = linha.ExtrairValorDaLinha(83, 85).BoletoBrToInt();
-                objRetornar.NossoNumero = linha.ExtrairValorDaLinha(86, 93);
+                objRetornar.NumeroDocumento = linha.ExtrairValorDaLinha(86, 93);
                 objRetornar.DacNossoNumero = linha.ExtrairValorDaLinha(94, 94).BoletoBrToInt();
                 // Brancos
                 objRetornar.CodigoCarteira = linha.ExtrairValorDaLinha(108, 108);
                 objRetornar.CodigoDeOcorrencia = linha.ExtrairValorDaLinha(109, 110).BoletoBrToInt();
-                objRetornar.DataDaOcorrencia =
-                    (DateTime)linha.ExtrairValorDaLinha(111, 116).BoletoBrToStringSafe().ToDateTimeFromDdMmAa();
-                objRetornar.NumeroDocumento = linha.ExtrairValorDaLinha(117, 126);
+                objRetornar.DataDaOcorrencia = (DateTime)linha.ExtrairValorDaLinha(111, 116).BoletoBrToStringSafe().ToDateTimeFromDdMmAa();
                 objRetornar.NossoNumero = linha.ExtrairValorDaLinha(127, 134);
                 // Brancos
-                objRetornar.DataDeVencimento =
-                    linha.ExtrairValorDaLinha(147, 152).BoletoBrToStringSafe().ToDateTimeFromDdMmAa() ?? DateTime.MinValue;
+                objRetornar.DataDeVencimento =linha.ExtrairValorDaLinha(147, 152).BoletoBrToStringSafe().ToDateTimeFromDdMmAa() ?? DateTime.MinValue;
                 objRetornar.ValorDoTituloParcela = linha.ExtrairValorDaLinha(153, 165).BoletoBrToDecimal() / 100;
                 objRetornar.BancoCobrador = linha.ExtrairValorDaLinha(166, 168).BoletoBrToInt();
                 objRetornar.AgenciaCobradora = linha.ExtrairValorDaLinha(169, 172).BoletoBrToInt();
@@ -168,14 +165,22 @@ namespace BoletoBr.Bancos.Itau
 
                 objRetornar.ValorPrincipal = linha.ExtrairValorDaLinha(254, 266).BoletoBrToDecimal() / 100;
                 objRetornar.ValorLiquidoRecebido = linha.ExtrairValorDaLinha(254, 266).BoletoBrToDecimal() / 100;
-
-                /* Valor recebido não considera a tarifa */
-                objRetornar.ValorLiquidoRecebido += objRetornar.ValorTarifa;
-
+      
                 // Multa também é considerada
                 objRetornar.ValorJurosDeMora = linha.ExtrairValorDaLinha(267, 279).BoletoBrToDecimal() / 100;
                 objRetornar.ValorOutrosCreditos = linha.ExtrairValorDaLinha(280, 292).BoletoBrToDecimal() / 100;
                 objRetornar.IndicadorBoletoDDA = linha.ExtrairValorDaLinha(293, 293);
+
+                //Estamos considerando o fato do Itaú sempre somar a tarifa de cobrança do boleto ao valor pago
+                //Caso esta condição seja alterada será necessário customizar isso com campos específicos na carteira
+                //Conforme conversado -> Sidney e Marcelo em 31/10/2019
+                if (objRetornar.ValorDoTituloParcela < (objRetornar.ValorTarifa + objRetornar.ValorJurosAtraso + objRetornar.ValorJurosDeMora))
+                {
+                    objRetornar.ValorLiquidoRecebido *= -1;     //turns a negative number because the tax is bigger than original value
+                }
+
+                objRetornar.ValorLiquidoRecebido += objRetornar.ValorTarifa;
+                
                 // Brancos
                 objRetornar.DataDeCredito =
                     linha.ExtrairValorDaLinha(296, 301).BoletoBrToStringSafe().ToDateTimeFromDdMmAa().Equals(null)

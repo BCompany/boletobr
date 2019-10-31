@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BoletoBr.Arquivo;
-using BoletoBr.Bancos.Itau;
+﻿using BoletoBr.Arquivo;
 using BoletoBr.Dominio;
 using BoletoBr.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace BoletoBr.UnitTests.TestsBancosRemessa
 {
@@ -158,7 +153,7 @@ namespace BoletoBr.UnitTests.TestsBancosRemessa
                 DataVencimento = new DateTime(2014, 09, 09),
                 Especie = banco.ObtemEspecieDocumento(EnumEspecieDocumento.DuplicataMercantil),
                 CodigoOcorrenciaRemessa = new CodigoOcorrencia(01),
-                Moeda = "09",
+                Moeda = "09"
             };
 
             banco.FormatarBoleto(boleto);

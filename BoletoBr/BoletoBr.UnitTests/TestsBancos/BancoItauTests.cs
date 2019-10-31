@@ -1,8 +1,7 @@
-﻿using System;
-using BoletoBr.Arquivo;
-using BoletoBr.Dominio;
+﻿using BoletoBr.Arquivo;
 using BoletoBr.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace BoletoBr.UnitTests.TestsBancos
 {
@@ -282,8 +281,8 @@ namespace BoletoBr.UnitTests.TestsBancos
         {
             var remessa = new Remessa(Remessa.EnumTipoAmbiemte.Homologacao, EnumCodigoOcorrenciaRemessa.Registro, "2");
             var banco = Fabricas.BancoFactory.ObterBanco("341");
-            var contaBancariaCedente = new ContaBancaria("4343", "5", "38383", "4");
-            var cedente = new Cedente("38383", 4, "02.289.264/0001-32", "BUSINESS COMPANY TECNOLOGIA LTDA", contaBancariaCedente, null);
+            var contaBancariaCedente = new ContaBancaria("8122", "", "01010101", "0");
+            var cedente = new Cedente("01010101", 0, "02.289.264/0001-32", "BUSINESS COMPANY TECNOLOGIA LTDA", contaBancariaCedente, null);
 
             var sacado = new Sacado("Sacado Fulano de Tal", "999.999.999-99", new Endereco()
             {
@@ -301,9 +300,9 @@ namespace BoletoBr.UnitTests.TestsBancos
 
             var boleto = new Boleto(carteira, cedente, sacado, remessa)
             {
-                NumeroDocumento = "668",
-                ValorBoleto = Convert.ToDecimal(1),
-                IdentificadorInternoBoleto = "668",
+                NumeroDocumento = "1",
+                ValorBoleto = Convert.ToDecimal(99.90),
+                IdentificadorInternoBoleto = "1", 
                 DataVencimento = DateTime.Now.Date
             };
 

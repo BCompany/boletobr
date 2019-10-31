@@ -274,7 +274,7 @@ namespace BoletoBrPrint.Bancos
                 table.AddCell(col1);
 
                 chunk1 = new Chunk("Carteira \n", smallFont);
-                chunk2 = new Chunk(document.CarteiraCobranca.Descricao, regularFont);
+                chunk2 = new Chunk(document.CarteiraCobranca.Codigo, regularFont);
                 col2 = new PdfPCell();
                 col2.AddElement(chunk1);
                 col2.AddElement(chunk2);
