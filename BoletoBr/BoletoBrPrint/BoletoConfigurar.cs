@@ -38,6 +38,11 @@ namespace BoletoBrPrint
                     this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoSantanderPNG);
                     break;
 
+                case ModeloImplementacao.BancoBrasil:
+                    this.NumeroBanco = "001-9";
+                    this.Logotipo = Image.GetInstance(BoletoBrPrint.Resources.BoletoBrPrint.LogotipoBancoBrasilPNG);
+                    break;
+
                 default:
                     this.NumeroBanco = "000-0";
                     break;

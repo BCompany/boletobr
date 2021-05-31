@@ -1,9 +1,10 @@
-﻿using BoletoBr.Bancos.Bradesco;
+﻿using BoletoBr.Arquivo.Generico.Retorno;
+using BoletoBr.Bancos.Bradesco;
+using BoletoBr.Bancos.Brasil;
 using BoletoBr.Bancos.Itau;
 using BoletoBr.Bancos.Santander;
-using System.Collections.Generic;
 using System;
-using BoletoBr.Arquivo.Generico.Retorno;
+using System.Collections.Generic;
 
 namespace BoletoBr.Bancos
 {
@@ -23,6 +24,9 @@ namespace BoletoBr.Bancos
 
                 case ModeloImplementacao.Santander:
                     return new SantanderRetornoAdapter();
+
+                case ModeloImplementacao.BancoBrasil:
+                    return new BancoBrasilRetornoAdapter();
 
                 default:
                     throw new ArgumentException("O arquivo de retorno não esta disponível para o banco código:" + codigoBanco);
@@ -71,6 +75,17 @@ namespace BoletoBr.Bancos
             var fileBradesco = new BancoBradesco();
 
             return fileBradesco.LerArquivoRetornoLiquidacao(fileLines);
+        }
+    }
+
+    //Implementação para o Banco do Brasil
+    class BancoBrasilRetornoAdapter : ITargetAdapter
+    {
+        public RetornoGenerico ProcessarArquivo(List<string> fileLines)
+        {
+            var fileBancoBrasil = new BancoBrasil();
+
+            return fileBancoBrasil.LerArquivoRetornoLiquidacao(fileLines);
         }
     }
 

@@ -2022,8 +2022,15 @@ namespace BoletoBr.Bancos.Brasil
 
         public RetornoGenerico LerArquivoRetornoLiquidacao(List<string> linhasArquivo)
         {
+            var objRetornar = this.LerArquivoRetorno(linhasArquivo);
+            objRetornar.RegistrosDetalhe = objRetornar.RegistrosDetalhe.Where(ocorrencia => ocorrencia.CodigoOcorrencia == "05" ||
+                                                                                            ocorrencia.CodigoOcorrencia == "06" ||
+                                                                                            ocorrencia.CodigoOcorrencia == "07" ||
+                                                                                            ocorrencia.CodigoOcorrencia == "08" ||
+                                                                                            ocorrencia.CodigoOcorrencia == "15" ||
+                                                                                            ocorrencia.CodigoOcorrencia == "46").ToList();
 
-            throw new Exception("Não implementado retorno de liquidacao para o banco");
+            return objRetornar;
         }
 
         public RemessaCnab240 GerarArquivoRemessaCnab240(List<Boleto> boletos)

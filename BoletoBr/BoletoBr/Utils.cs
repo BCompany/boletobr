@@ -41,6 +41,8 @@ namespace BoletoBr
                     return ModeloImplementacao.Bradesco;
                 case "341":
                     return ModeloImplementacao.Itau;
+                case "001":
+                    return ModeloImplementacao.BancoBrasil;
                 default:
                     throw new NotImplementedException("Banco código " + codigoBanco + " ainda não foi implementado.");
             }
@@ -54,6 +56,8 @@ namespace BoletoBr
         [Description("CAIXA ECONOMICA FEDERAL")]
         Itau,
         [Description("SANTANDER")]
-        Santander
+        Santander,
+        [Description("BANCO DO BRASIL")]
+        BancoBrasil
     }
 }

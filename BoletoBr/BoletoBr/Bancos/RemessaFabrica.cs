@@ -1,5 +1,5 @@
-﻿using BoletoBr.Arquivo.CNAB400.Remessa;
-using BoletoBr.Bancos.Bradesco;
+﻿using BoletoBr.Bancos.Bradesco;
+using BoletoBr.Bancos.Brasil;
 using BoletoBr.Bancos.Itau;
 using BoletoBr.Bancos.Santander;
 using BoletoBr.Interfaces;
@@ -23,6 +23,9 @@ namespace BoletoBr.Bancos
 
                 case ModeloImplementacao.Santander:
                     return new EscritorRemessaCnab400Santander();
+
+                case ModeloImplementacao.BancoBrasil:
+                    return new EscritorRemessaCnab400BancoDoBrasil();
 
                 default:
                     throw new ArgumentException("O arquivo de remessa não esta disponível para o banco código:" + codigoBanco);
